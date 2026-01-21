@@ -1,0 +1,17 @@
+[package]
+name = "netctl-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Core logic for netctl"
+
+[dependencies]
+netctl-types.workspace = true
+netctl-netlink.workspace = true
+netctl-dbus.workspace = true
+netctl-config.workspace = true
+tokio.workspace = true
+async-trait.workspace = true
+tracing.workspace = true

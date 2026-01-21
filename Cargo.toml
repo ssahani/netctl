@@ -1,0 +1,81 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/netctl",
+    "crates/netctl-core",
+    "crates/netctl-netlink",
+    "crates/netctl-dbus",
+    "crates/netctl-config",
+    "crates/netctl-types",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["netctl Contributors"]
+license = "Apache-2.0"
+repository = "https://github.com/vmware/netctl"
+
+[workspace.dependencies]
+# Internal crates
+netctl-types = { path = "crates/netctl-types" }
+netctl-netlink = { path = "crates/netctl-netlink" }
+netctl-dbus = { path = "crates/netctl-dbus" }
+netctl-config = { path = "crates/netctl-config" }
+netctl-core = { path = "crates/netctl-core" }
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+async-trait = "0.1"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+miette = { version = "7.0", features = ["fancy"] }
+
+# D-Bus (async)
+zbus = { version = "4.0", default-features = false, features = ["tokio"] }
+
+# Netlink (async)
+rtnetlink = "0.14"
+netlink-packet-route = "0.19"
+netlink-sys = "0.8"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+toml = "0.8"
+
+# CLI
+clap = { version = "4.4", features = ["derive", "env", "wrap_help", "cargo"] }
+inquire = "0.7"
+comfy-table = "7.1"
+colored = "2.1"
+indicatif = "0.17"
+
+# Logging/Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Testing
+proptest = "1.4"
+tokio-test = "0.4"
+mockall = "0.12"
+
+# System
+libc = "0.2"
+nix = { version = "0.28", features = ["net", "socket"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
+
+[profile.release-small]
+inherits = "release"
+opt-level = "z"

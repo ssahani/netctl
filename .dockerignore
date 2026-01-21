@@ -1,0 +1,16 @@
+target/
+.git/
+.github/
+*.md
+!README.md
+.vscode/
+.idea/
+build/
+meson-*/
+src/
+tests/
+units/
+conf/
+*.c
+*.h
+meson.build

@@ -1,0 +1,24 @@
+[package]
+name = "netctl"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Modern network configuration tool"
+
+[[bin]]
+name = "netctl"
+path = "src/main.rs"
+
+[dependencies]
+netctl-types.workspace = true
+netctl-core.workspace = true
+tokio.workspace = true
+clap.workspace = true
+inquire.workspace = true
+comfy-table.workspace = true
+colored.workspace = true
+tracing.workspace = true
+miette.workspace = true
+serde_json.workspace = true

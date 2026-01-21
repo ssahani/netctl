@@ -1,0 +1,16 @@
+[package]
+name = "netctl-types"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Core types for netctl"
+
+[dependencies]
+thiserror.workspace = true
+miette.workspace = true
+serde.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+async-trait.workspace = true

@@ -1,0 +1,19 @@
+[package]
+name = "netctl-netlink"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Async netlink for netctl"
+
+[dependencies]
+netctl-types.workspace = true
+tokio.workspace = true
+futures.workspace = true
+async-trait.workspace = true
+tracing.workspace = true
+rtnetlink.workspace = true
+netlink-packet-route.workspace = true
+netlink-sys.workspace = true
+nix.workspace = true

@@ -1,0 +1,15 @@
+[package]
+name = "netctl-dbus"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "D-Bus client for netctl"
+
+[dependencies]
+netctl-types.workspace = true
+tokio.workspace = true
+async-trait.workspace = true
+tracing.workspace = true
+zbus.workspace = true

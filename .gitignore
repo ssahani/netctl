@@ -1,0 +1,29 @@
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# C/Meson (old)
+build/
+meson-*/
+*.o
+*.a
+*.so
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude
+.claude/
+
+# Tests
+coverage/
+*.profraw

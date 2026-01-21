@@ -1,0 +1,16 @@
+[package]
+name = "netctl-config"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Configuration management for netctl"
+
+[dependencies]
+netctl-types.workspace = true
+serde.workspace = true
+serde_yaml.workspace = true
+toml.workspace = true
+tokio.workspace = true
+tracing.workspace = true
