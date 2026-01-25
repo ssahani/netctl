@@ -554,12 +554,6 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 - **Documentation**: [See docs/](docs/)
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
-## 🙏 Acknowledgments
-
-- Original [network-config-manager](https://github.com/vmware/network-config-manager) project
-- Rust async ecosystem: [Tokio](https://tokio.rs), [rtnetlink](https://github.com/little-dude/netlink), [zbus](https://gitlab.freedesktop.org/dbus/zbus)
-- systemd project for D-Bus interfaces
-
 ---
 
 <div align="center">
