@@ -56,6 +56,13 @@ comfy-table = "7.1"
 colored = "2.1"
 indicatif = "0.17"
 
+# TUI
+ratatui = "0.26"
+crossterm = "0.27"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
 # Logging/Tracing
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
