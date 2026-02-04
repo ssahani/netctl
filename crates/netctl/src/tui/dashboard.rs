@@ -1,3 +1,4 @@
+use super::colors::*;
 use miette::Result;
 use netctl_core::NetworkManager;
 use ratatui::{prelude::*, widgets::*};
@@ -55,10 +56,16 @@ impl Dashboard {
         let title = Block::default()
             .borders(Borders::ALL)
             .border_type(BorderType::Rounded)
-            .style(Style::default().fg(Color::Cyan));
+            .border_style(Style::default().fg(BORDER_COLOR))
+            .style(Style::default().bg(BG_COLOR));
 
-        let title_text = Paragraph::new("🌐 netctl - Real-time Network Dashboard")
-            .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
+        let title_text = Paragraph::new(vec![
+            Line::from(vec![
+                Span::styled("netctl", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::raw(" - "),
+                Span::styled("Real-time Network Dashboard", Style::default().fg(LIGHT_ORANGE)),
+            ])
+        ])
             .alignment(Alignment::Center)
             .block(title);
 
@@ -74,7 +81,7 @@ impl Dashboard {
 
         // Create table header
         let header = Row::new(vec!["Index", "Name", "State", "MTU", "MAC Address"])
-            .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
+            .style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD))
             .bottom_margin(1);
 
         // Create table rows
@@ -82,8 +89,8 @@ impl Dashboard {
             .iter()
             .map(|iface| {
                 let state_color = match iface.state {
-                    netctl_types::network::LinkState::Up => Color::Green,
-                    netctl_types::network::LinkState::Down => Color::Red,
+                    netctl_types::network::LinkState::Up => SUCCESS_COLOR,
+                    netctl_types::network::LinkState::Down => ERROR_COLOR,
                 };
 
                 Row::new(vec![
@@ -113,8 +120,9 @@ impl Dashboard {
             Block::default()
                 .borders(Borders::ALL)
                 .border_type(BorderType::Rounded)
-                .title(format!(" Interfaces ({}) ", interfaces.len()))
-                .title_style(Style::default().fg(Color::Green)),
+                .border_style(Style::default().fg(BORDER_COLOR))
+                .title(format!(" 🌐 Network Interfaces ({}) ", interfaces.len()))
+                .title_style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
         )
         .column_spacing(2);
 
@@ -123,13 +131,22 @@ impl Dashboard {
     }
 
     fn render_footer(&self, frame: &mut Frame, area: Rect) {
-        let footer = Paragraph::new("Press 'q' to quit | Auto-refresh: 1s")
-            .style(Style::default().fg(Color::Gray))
+        let footer_text = vec![
+            Line::from(vec![
+                Span::styled("Press ", Style::default().fg(TEXT_COLOR)),
+                Span::styled("'q'", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(" to quit | Auto-refresh: ", Style::default().fg(TEXT_COLOR)),
+                Span::styled("1s", Style::default().fg(LIGHT_ORANGE).add_modifier(Modifier::BOLD)),
+            ])
+        ];
+
+        let footer = Paragraph::new(footer_text)
             .alignment(Alignment::Center)
             .block(
                 Block::default()
                     .borders(Borders::ALL)
-                    .border_type(BorderType::Rounded),
+                    .border_type(BorderType::Rounded)
+                    .border_style(Style::default().fg(BORDER_COLOR)),
             );
 
         frame.render_widget(footer, area);

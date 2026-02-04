@@ -2,9 +2,9 @@ use clap::Args;
 use miette::{IntoDiagnostic, Result};
 
 #[derive(Args)]
-pub struct DashboardArgs {}
+pub struct TuiArgs {}
 
-impl DashboardArgs {
+impl TuiArgs {
     pub async fn execute(self) -> Result<()> {
         use crate::tui::{init_terminal, restore_terminal, Dashboard, TuiApp};
 
