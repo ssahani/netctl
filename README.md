@@ -62,7 +62,7 @@ Built with Rust's safety guarantees and Tokio's async runtime, netctl offers a p
 - 🌐 **Address Management** - Configure IPv4/IPv6 addresses
 
 **Monitoring & Observability:**
-- 🎨 **Real-time TUI Dashboard** - Beautiful terminal UI with live network monitoring
+- 🎨 **Real-time TUI** - Beautiful terminal dashboard with live network monitoring
 - 👁️ **Watch Mode** - Continuous monitoring with auto-refresh
 - 📊 **Network Statistics** - Real-time bandwidth, packet counters, and error monitoring
 - 🔍 **System Diagnostics** - Comprehensive health checks with `doctor` command
@@ -318,8 +318,8 @@ netctl hostname machine-id
 Launch an interactive terminal dashboard with live network monitoring:
 
 ```bash
-# Start the real-time dashboard
-sudo netctl dashboard
+# Start the real-time TUI dashboard
+sudo netctl tui
 
 # Features:
 # - Auto-refreshing interface list (1s intervals)
@@ -328,7 +328,7 @@ sudo netctl dashboard
 # - Press 'q' to quit
 ```
 
-The dashboard provides a beautiful, real-time view of your network interfaces with automatic updates.
+The TUI provides a beautiful, real-time view of your network interfaces with automatic updates, using a stunning coral-orange color scheme inspired by Pantone 7416 C (matching guestkit's design).
 
 #### Watch Mode (Continuous Monitoring)
 
@@ -1302,7 +1302,7 @@ A: Absolutely! See the [Contributing](#-contributing) section below.
 - [x] CI/CD pipeline
 
 **Production Features (17 commands):**
-- [x] **Real-time TUI dashboard** - Live monitoring with ratatui
+- [x] **Real-time TUI** - Live monitoring dashboard with coral-orange theme
 - [x] **Watch mode** - Continuous interface monitoring
 - [x] **Network profiles** - Save/load/list/delete/show configurations
 - [x] **Declarative config** - Apply from YAML/TOML files with dry-run

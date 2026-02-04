@@ -1,3 +1,4 @@
+pub mod colors;
 pub mod dashboard;
 
 use crossterm::{

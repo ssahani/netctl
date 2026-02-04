@@ -2,7 +2,6 @@ pub mod address;
 pub mod apply;
 pub mod backup;
 pub mod completion;
-pub mod dashboard;
 pub mod diff;
 pub mod doctor;
 pub mod export;
@@ -12,6 +11,7 @@ pub mod profile;
 pub mod show;
 pub mod stats;
 pub mod test;
+pub mod tui;
 pub mod validate;
 pub mod watch;
 pub mod wizard;
@@ -42,8 +42,8 @@ pub enum Commands {
     #[command(name = "addr")]
     Address(address::AddressCommand),
 
-    /// Real-time TUI dashboard
-    Dashboard(dashboard::DashboardArgs),
+    /// Real-time TUI dashboard (interactive interface)
+    Tui(tui::TuiArgs),
 
     /// Watch interfaces (continuous monitoring)
     Watch(watch::WatchArgs),
@@ -91,7 +91,7 @@ impl Cli {
             Commands::Show(args) => args.execute().await,
             Commands::Link(cmd) => cmd.execute().await,
             Commands::Address(cmd) => cmd.execute().await,
-            Commands::Dashboard(args) => args.execute().await,
+            Commands::Tui(args) => args.execute().await,
             Commands::Watch(args) => args.execute().await,
             Commands::Profile(cmd) => cmd.execute().await,
             Commands::Apply(args) => args.execute().await,
