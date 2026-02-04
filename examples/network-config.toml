@@ -1,0 +1,25 @@
+# Example network configuration file for netctl (TOML format)
+# Usage: sudo netctl apply examples/network-config.toml
+
+[[interfaces]]
+name = "eth0"
+state = "up"
+mtu = 1500
+addresses = [
+    "192.168.1.100/24",
+    "2001:db8::100/64"
+]
+
+[[interfaces]]
+name = "eth1"
+state = "up"
+mtu = 9000  # Jumbo frames for high-performance networking
+addresses = [
+    "10.0.0.50/24"
+]
+
+[[interfaces]]
+name = "wlan0"
+state = "down"
+mtu = 1500
+addresses = []

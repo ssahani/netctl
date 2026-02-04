@@ -58,8 +58,16 @@ Built with Rust's safety guarantees and Tokio's async runtime, netctl offers a p
 - 🎨 **Real-time TUI Dashboard** - Beautiful terminal UI with live network monitoring
 - 👁️ **Watch Mode** - Continuous monitoring with auto-refresh
 - 💾 **Network Profiles** - Save/load/switch complete network configurations
-- 🔄 **Configuration as Code** - YAML-based profile management for reproducible setups
+- 🔄 **Configuration as Code** - YAML/TOML-based declarative configuration with `apply`
 - 📸 **Instant Snapshots** - Save current network state and restore later
+- 🔍 **Network Diff** - Compare configurations and states with color-coded output
+- 🧙 **Interactive Wizard** - Guided setup for common configuration tasks
+- 🏥 **System Diagnostics** - Comprehensive health checks with `doctor` command
+- 📊 **Network Statistics** - Real-time bandwidth, packet counters, and error monitoring
+- ✅ **Config Validation** - Pre-flight checks for configuration files
+- 🔌 **Shell Completion** - Auto-completion for bash, zsh, fish, PowerShell
+- 🚀 **GitOps Ready** - Version control your network configs, CI/CD friendly
+- 🎯 **Dry Run Mode** - Preview changes before applying them
 
 ## 📦 Installation
 
@@ -376,6 +384,276 @@ interfaces:
 - Share network setups across team members
 - Automate network configuration in scripts
 - Document network setups as code
+
+#### Declarative Configuration (Infrastructure as Code)
+
+Apply network configurations from YAML or TOML files:
+
+```bash
+# Apply configuration from YAML file
+sudo netctl apply network-config.yaml
+
+# Dry run - see what would be applied without making changes
+sudo netctl apply network-config.yaml --dry-run
+
+# Apply TOML configuration
+sudo netctl apply network-config.toml
+```
+
+**Example Configuration File (YAML):**
+
+```yaml
+# network-config.yaml
+interfaces:
+  - name: eth0
+    state: up
+    mtu: 1500
+    addresses:
+      - 192.168.1.100/24
+      - 2001:db8::100/64
+
+  - name: eth1
+    state: up
+    mtu: 9000  # Jumbo frames
+    addresses:
+      - 10.0.0.50/24
+```
+
+**Example Configuration File (TOML):**
+
+```toml
+# network-config.toml
+[[interfaces]]
+name = "eth0"
+state = "up"
+mtu = 1500
+addresses = ["192.168.1.100/24", "2001:db8::100/64"]
+
+[[interfaces]]
+name = "eth1"
+state = "up"
+mtu = 9000
+addresses = ["10.0.0.50/24"]
+```
+
+**Benefits:**
+- Version control your network configurations with Git
+- Reproducible infrastructure across environments
+- Easy rollback to previous configurations
+- Code review for network changes
+- GitOps workflows for network management
+
+#### Network Diff (Compare Configurations)
+
+Compare network states and profiles to see differences:
+
+```bash
+# Compare current state with a saved profile
+netctl diff current work
+
+# Compare two profiles
+netctl diff work home
+
+# Compare before/after making changes
+netctl profile save before
+# ... make changes ...
+netctl diff before current
+```
+
+**Example Output:**
+
+```
+Network Configuration Diff
+============================================================
+Comparing: current vs work
+
+~ eth0:
+  ~ state: Down → Up
+  ~ mtu: 1500 → 9000
+  + address: 192.168.1.100/24
+
++ Interface 'eth1' (only in work)
+```
+
+Color-coded output:
+- Green (+): Added in second state
+- Red (-): Removed from first state
+- Yellow (~): Modified between states
+
+#### Interactive Configuration Wizard
+
+Guided setup for common network configuration tasks:
+
+```bash
+# Launch the interactive wizard
+sudo netctl wizard
+
+# Follow the prompts to configure:
+# - Static IP addresses
+# - Interface state (up/down)
+# - MTU settings
+# - DHCP preparation
+# - Complete network setup
+```
+
+**Features:**
+- User-friendly interactive prompts
+- Input validation
+- Configuration summary before applying
+- Guided workflows for beginners
+- No need to memorize commands
+
+#### System Diagnostics
+
+Run comprehensive health checks and diagnostics:
+
+```bash
+# Run system diagnostics
+netctl doctor
+
+# Verbose diagnostics with detailed output
+netctl doctor --verbose
+```
+
+**Checks performed:**
+- ✓ Network interfaces availability
+- ✓ systemd services status (networkd, resolved)
+- ✓ D-Bus connection
+- ✓ Permissions and capabilities
+- ✓ Network connectivity
+- ✓ DNS resolution
+
+**Example Output:**
+
+```
+🔍 netctl System Diagnostics
+============================================================
+
+→ Checking network interfaces... ✓
+→ Checking systemd services... ✓
+→ Checking D-Bus connection... ✓
+→ Checking permissions... ⚠
+    Not running as root
+    Some operations may require sudo/root privileges
+→ Checking network connectivity... ✓
+→ Checking DNS resolution... ✓
+
+============================================================
+✓ All checks passed!
+```
+
+#### Network Statistics and Monitoring
+
+View real-time network statistics for interfaces:
+
+```bash
+# Show statistics for all interfaces
+netctl stats
+
+# Show statistics for specific interface
+netctl stats eth0
+
+# Detailed statistics (RX/TX packets and errors)
+netctl stats --detailed
+
+# JSON output for automation
+netctl stats --format json
+```
+
+**Example Output:**
+
+```
+┌───────────┬───────┬──────────┬──────────┬────────┐
+│ Interface │ State │ RX       │ TX       │ Errors │
+├═══════════┼═══════┼══════════┼══════════┼════════┤
+│ lo        │ UP    │ 125.45 MB│ 125.45 MB│ 0      │
+│ eth0      │ UP    │ 15.23 GB │ 2.45 GB  │ 0      │
+│ wlan0     │ DOWN  │ 0 B      │ 0 B      │ 0      │
+└───────────┴───────┴──────────┴──────────┴────────┘
+```
+
+**Features:**
+- Real-time bandwidth usage
+- Packet and error counters
+- Human-readable size formatting (B, KB, MB, GB, TB)
+- Color-coded interface states
+- JSON output for integration
+
+#### Configuration Validation
+
+Validate configuration files before applying them:
+
+```bash
+# Validate YAML configuration
+netctl validate network-config.yaml
+
+# Validate TOML configuration
+netctl validate network-config.toml
+
+# Strict mode - fail on warnings
+netctl validate network-config.yaml --strict
+```
+
+**Validation checks:**
+- File syntax (YAML/TOML parsing)
+- Interface name length and format
+- State values (up/down)
+- MTU ranges (68-65535)
+- IP address format and prefix length
+- Duplicate address detection
+- Common misconfigurations
+
+**Example Output:**
+
+```
+Validating network configuration...
+File: network-config.yaml
+
+✓ Configuration file parsed successfully
+
+Validating interface 1 (eth0)...
+  ✓ Validated
+Validating interface 2 (eth1)...
+  ✓ Validated
+
+============================================================
+
+Warnings (1):
+  ⚠ Jumbo frames (MTU 9000) on interface 'eth1' require network infrastructure support
+
+✓ Validation passed with warnings
+```
+
+#### Shell Completion Generation
+
+Generate shell completion scripts for better CLI experience:
+
+```bash
+# Generate bash completion
+netctl completion bash > /etc/bash_completion.d/netctl
+
+# Generate zsh completion
+netctl completion zsh > ~/.zsh/completion/_netctl
+
+# Generate fish completion
+netctl completion fish > ~/.config/fish/completions/netctl.fish
+
+# Generate PowerShell completion (Windows)
+netctl completion powershell > netctl.ps1
+```
+
+**Supported shells:**
+- Bash
+- Zsh
+- Fish
+- PowerShell
+- Elvish
+
+**Features:**
+- Command completion
+- Subcommand completion
+- Flag and option completion
+- Intelligent context-aware suggestions
 
 ### Real-World Examples
 
@@ -812,6 +1090,8 @@ A: Absolutely! See the [Contributing](#-contributing) section below.
 ## 🗺️ Roadmap
 
 ### Completed ✅
+
+**Core Functionality:**
 - [x] Async netlink operations
 - [x] D-Bus integration (networkd, resolved, hostnamed)
 - [x] Link management (up/down, MTU)
@@ -819,27 +1099,39 @@ A: Absolutely! See the [Contributing](#-contributing) section below.
 - [x] Show command with JSON output
 - [x] 21 unit tests
 - [x] CI/CD pipeline
+
+**Innovative Features (13 major features):**
 - [x] **Real-time TUI dashboard** with ratatui
 - [x] **Watch mode** for continuous monitoring
-- [x] **Network profiles** (save/load/list/delete)
+- [x] **Network profiles** (save/load/list/delete/show)
 - [x] **Cleaner CLI syntax** (property-based instead of flags)
+- [x] **Declarative configuration** - Apply from YAML/TOML files
+- [x] **Network diff** - Compare states and profiles with color-coded output
+- [x] **Interactive wizard** - Guided configuration setup with prompts
+- [x] **System diagnostics** - Comprehensive health checks with `doctor`
+- [x] **Network statistics** - Real-time bandwidth and packet monitoring
+- [x] **Configuration validation** - Pre-flight checks for config files
+- [x] **Shell completions** - Auto-complete for bash/zsh/fish/PowerShell/elvish
+- [x] **Dry run mode** - Preview changes before applying
+- [x] **Example configurations** - YAML and TOML templates
 
 ### In Progress 🚧
 - [ ] Address deletion (blocked on rtnetlink API)
-- [ ] Route management
-- [ ] Integration tests
-- [ ] Profile auto-apply on network changes
+- [ ] Route management and routing table manipulation
+- [ ] Integration tests with mock systemd services
+- [ ] Configuration rollback with history tracking
 
 ### Planned 📋
-- [ ] Virtual device support (VLAN, bridge, bond, WireGuard)
-- [ ] Network topology visualization
-- [ ] Declarative configuration from files
-- [ ] Profile diff and merge capabilities
-- [ ] Network health monitoring with auto-healing
-- [ ] Shell completion (bash, zsh, fish)
-- [ ] Man pages
-- [ ] Package distribution (.deb, .rpm)
-- [ ] Web dashboard (optional)
+- [ ] Virtual device support (VLAN, bridge, bond, WireGuard, veth)
+- [ ] Network topology visualization in TUI
+- [ ] Profile merge and conflict resolution
+- [ ] Network health monitoring with auto-healing policies
+- [ ] Historical statistics with time-series graphs
+- [ ] Man pages generation
+- [ ] Package distribution (.deb, .rpm, AUR)
+- [ ] Web dashboard (optional, with WebSocket updates)
+- [ ] REST API for remote management
+- [ ] Plugin system for custom network backends
 
 ## 🤝 Contributing
 
