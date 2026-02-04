@@ -1,13 +1,17 @@
 pub mod address;
 pub mod apply;
+pub mod backup;
 pub mod completion;
 pub mod dashboard;
 pub mod diff;
 pub mod doctor;
+pub mod export;
+pub mod history;
 pub mod link;
 pub mod profile;
 pub mod show;
 pub mod stats;
+pub mod test;
 pub mod validate;
 pub mod watch;
 pub mod wizard;
@@ -67,6 +71,18 @@ pub enum Commands {
 
     /// Generate shell completion scripts
     Completion(completion::CompletionArgs),
+
+    /// Manage configuration history and rollback
+    History(history::HistoryCommand),
+
+    /// Backup and restore network configuration
+    Backup(backup::BackupCommand),
+
+    /// Test network connectivity and functionality
+    Test(test::TestCommand),
+
+    /// Export network configuration to file
+    Export(export::ExportArgs),
 }
 
 impl Cli {
@@ -85,6 +101,10 @@ impl Cli {
             Commands::Stats(args) => args.execute().await,
             Commands::Validate(args) => args.execute().await,
             Commands::Completion(args) => args.execute().await,
+            Commands::History(cmd) => cmd.execute().await,
+            Commands::Backup(cmd) => cmd.execute().await,
+            Commands::Test(cmd) => cmd.execute().await,
+            Commands::Export(args) => args.execute().await,
         }
     }
 }

@@ -54,20 +54,34 @@ Built with Rust's safety guarantees and Tokio's async runtime, netctl offers a p
 - 💾 **Efficient** - Low memory footprint with Rust's zero-cost abstractions
 - 🔄 **Concurrent** - Multiple network operations executed in parallel
 
-### Innovative Features
+### Innovative Features (17 Commands)
+
+**Core Operations:**
+- 📡 **Show** - Display network interfaces with detailed information
+- 🔗 **Link Management** - Control interface state, MTU, MAC addresses
+- 🌐 **Address Management** - Configure IPv4/IPv6 addresses
+
+**Monitoring & Observability:**
 - 🎨 **Real-time TUI Dashboard** - Beautiful terminal UI with live network monitoring
 - 👁️ **Watch Mode** - Continuous monitoring with auto-refresh
+- 📊 **Network Statistics** - Real-time bandwidth, packet counters, and error monitoring
+- 🔍 **System Diagnostics** - Comprehensive health checks with `doctor` command
+- 🧪 **Network Testing** - Connectivity, DNS, ping tests with comprehensive test suite
+
+**Configuration Management:**
 - 💾 **Network Profiles** - Save/load/switch complete network configurations
 - 🔄 **Configuration as Code** - YAML/TOML-based declarative configuration with `apply`
-- 📸 **Instant Snapshots** - Save current network state and restore later
-- 🔍 **Network Diff** - Compare configurations and states with color-coded output
-- 🧙 **Interactive Wizard** - Guided setup for common configuration tasks
-- 🏥 **System Diagnostics** - Comprehensive health checks with `doctor` command
-- 📊 **Network Statistics** - Real-time bandwidth, packet counters, and error monitoring
+- 📸 **Backup & Restore** - Full network state backup and disaster recovery
+- ⏮️ **History & Rollback** - Track all changes and rollback to previous states
+- 📤 **Export** - Export configs in YAML/TOML/JSON for integration
 - ✅ **Config Validation** - Pre-flight checks for configuration files
-- 🔌 **Shell Completion** - Auto-completion for bash, zsh, fish, PowerShell
-- 🚀 **GitOps Ready** - Version control your network configs, CI/CD friendly
+- 📊 **Network Diff** - Compare configurations and states with color-coded output
+
+**Developer Experience:**
+- 🧙 **Interactive Wizard** - Guided setup for common configuration tasks
+- 🔌 **Shell Completion** - Auto-completion for bash, zsh, fish, PowerShell, elvish
 - 🎯 **Dry Run Mode** - Preview changes before applying them
+- 🚀 **GitOps Ready** - Version control your network configs, CI/CD friendly
 
 ## 📦 Installation
 
@@ -655,6 +669,193 @@ netctl completion powershell > netctl.ps1
 - Flag and option completion
 - Intelligent context-aware suggestions
 
+#### Configuration History and Rollback
+
+Track all configuration changes with automatic history and rollback capability:
+
+```bash
+# List configuration history
+netctl history list
+
+# Show last 20 changes
+netctl history list -n 20
+
+# Show details of a specific history entry
+netctl history show 20260204_143052
+
+# Rollback to a previous configuration
+netctl history rollback 20260204_143052
+
+# Rollback without confirmation prompt
+netctl history rollback 20260204_143052 --yes
+
+# Clear all history
+netctl history clear
+```
+
+**Features:**
+- Automatic snapshot before major changes
+- Timestamped history entries
+- Detailed operation logs
+- Safe rollback with confirmation
+- Preserves state before rollback
+
+**Example Output:**
+
+```
+Configuration History
+================================================================================
+
+1. 20260204_143052 (2026-02-04T14:30:52+00:00)
+   Operation: apply
+   Applied configuration from network-config.yaml
+
+2. 20260204_120015 (2026-02-04T12:00:15+00:00)
+   Operation: manual
+   Manual configuration changes
+
+3. 20260203_183045 (2026-02-03T18:30:45+00:00)
+   Operation: rollback
+   Rollback to 20260203_150000
+```
+
+#### Backup and Restore
+
+Create full backups of your network configuration:
+
+```bash
+# Create a backup
+netctl backup create production --description "Production config before upgrade"
+
+# List all backups
+netctl backup list
+
+# Restore from backup
+netctl backup restore production
+
+# Restore without confirmation
+netctl backup restore production --yes
+
+# Delete a backup
+netctl backup delete old-config
+
+# Export backup to file
+netctl backup export production --output /path/to/backup.json
+```
+
+**Features:**
+- Complete network state snapshot
+- Metadata with timestamps and descriptions
+- Automatic backup before restore
+- Export to JSON for version control
+- Safe restore with confirmation
+
+**Use Cases:**
+- Pre-upgrade backups
+- Disaster recovery
+- Configuration testing (backup, test, restore)
+- Team sharing via exported files
+- Compliance and audit trails
+
+#### Network Testing Suite
+
+Comprehensive network connectivity and functionality testing:
+
+```bash
+# Test connectivity on all active interfaces
+netctl test connectivity
+
+# Test specific interface
+netctl test connectivity --interface eth0
+
+# Test DNS resolution
+netctl test dns www.example.com
+
+# Ping a host
+netctl test ping 8.8.8.8 -c 10
+
+# Ping via specific interface
+netctl test ping 192.168.1.1 --interface eth0
+
+# Run comprehensive test suite
+netctl test all
+```
+
+**Comprehensive Test Suite (`test all`) includes:**
+- ✓ Interface availability
+- ✓ Internet connectivity (ping 8.8.8.8)
+- ✓ DNS resolution
+- ✓ systemd-networkd status
+- ✓ systemd-resolved status
+
+**Example Output:**
+
+```
+Comprehensive Network Test Suite
+================================================================================
+
+1. Testing interface availability...
+   ✓ 2 interface(s) up
+
+2. Testing internet connectivity...
+   ✓ Internet accessible
+
+3. Testing DNS resolution...
+   ✓ DNS resolution working
+
+4. Testing systemd-networkd...
+   ✓ systemd-networkd is active
+
+5. Testing systemd-resolved...
+   ✓ systemd-resolved is active
+
+================================================================================
+Test Summary
+
+  PASS Interface availability
+  PASS Internet connectivity
+  PASS DNS resolution
+  PASS systemd-networkd
+  PASS systemd-resolved
+
+✓ All tests passed (5/5)
+```
+
+#### Export Configuration
+
+Export network configuration in multiple formats for integration:
+
+```bash
+# Export to YAML (default)
+netctl export network.yaml
+
+# Export to TOML
+netctl export network.toml --format toml
+
+# Export to JSON
+netctl export network.json --format json
+
+# Export specific interfaces only
+netctl export eth-only.yaml --interfaces eth0,eth1
+
+# Pretty print output
+netctl export config.json --format json --pretty
+```
+
+**Features:**
+- Multiple format support (YAML, TOML, JSON)
+- Selective interface export
+- Metadata inclusion (timestamp, hostname)
+- Pretty printing option
+- GitOps-friendly output
+
+**Use Cases:**
+- Version control integration
+- Configuration documentation
+- Cross-team sharing
+- Migration to other tools
+- Ansible/Terraform integration
+
 ### Real-World Examples
 
 #### Configure Static IP with Gateway
@@ -1094,44 +1295,50 @@ A: Absolutely! See the [Contributing](#-contributing) section below.
 **Core Functionality:**
 - [x] Async netlink operations
 - [x] D-Bus integration (networkd, resolved, hostnamed)
-- [x] Link management (up/down, MTU)
+- [x] Link management (up/down, MTU, MAC)
 - [x] Address management (add)
 - [x] Show command with JSON output
 - [x] 21 unit tests
 - [x] CI/CD pipeline
 
-**Innovative Features (13 major features):**
-- [x] **Real-time TUI dashboard** with ratatui
-- [x] **Watch mode** for continuous monitoring
-- [x] **Network profiles** (save/load/list/delete/show)
-- [x] **Cleaner CLI syntax** (property-based instead of flags)
-- [x] **Declarative configuration** - Apply from YAML/TOML files
-- [x] **Network diff** - Compare states and profiles with color-coded output
-- [x] **Interactive wizard** - Guided configuration setup with prompts
-- [x] **System diagnostics** - Comprehensive health checks with `doctor`
-- [x] **Network statistics** - Real-time bandwidth and packet monitoring
-- [x] **Configuration validation** - Pre-flight checks for config files
-- [x] **Shell completions** - Auto-complete for bash/zsh/fish/PowerShell/elvish
-- [x] **Dry run mode** - Preview changes before applying
-- [x] **Example configurations** - YAML and TOML templates
+**Production Features (17 commands):**
+- [x] **Real-time TUI dashboard** - Live monitoring with ratatui
+- [x] **Watch mode** - Continuous interface monitoring
+- [x] **Network profiles** - Save/load/list/delete/show configurations
+- [x] **Declarative config** - Apply from YAML/TOML files with dry-run
+- [x] **Network diff** - Compare states and profiles with color coding
+- [x] **Interactive wizard** - Guided configuration setup
+- [x] **System diagnostics** - Comprehensive health checks (`doctor`)
+- [x] **Network statistics** - Real-time bandwidth/packet/error monitoring
+- [x] **Config validation** - Pre-flight checks with warnings/errors
+- [x] **Shell completions** - bash/zsh/fish/PowerShell/elvish support
+- [x] **History & rollback** - Track changes and rollback capability
+- [x] **Backup & restore** - Full system backup and disaster recovery
+- [x] **Network testing** - Connectivity, DNS, ping, comprehensive tests
+- [x] **Export** - YAML/TOML/JSON export for GitOps
+- [x] **Cleaner CLI** - Property-based syntax (no verbose flags)
+- [x] **Example configs** - YAML and TOML templates
+- [x] **Dry run mode** - Preview all changes before applying
 
 ### In Progress 🚧
 - [ ] Address deletion (blocked on rtnetlink API)
 - [ ] Route management and routing table manipulation
 - [ ] Integration tests with mock systemd services
-- [ ] Configuration rollback with history tracking
+- [ ] Historical statistics with time-series data
 
 ### Planned 📋
 - [ ] Virtual device support (VLAN, bridge, bond, WireGuard, veth)
-- [ ] Network topology visualization in TUI
+- [ ] Network topology visualization in TUI with ASCII graphs
 - [ ] Profile merge and conflict resolution
 - [ ] Network health monitoring with auto-healing policies
-- [ ] Historical statistics with time-series graphs
-- [ ] Man pages generation
-- [ ] Package distribution (.deb, .rpm, AUR)
-- [ ] Web dashboard (optional, with WebSocket updates)
+- [ ] Bandwidth alerts and threshold notifications
+- [ ] Man pages generation from CLI metadata
+- [ ] Package distribution (.deb, .rpm, AUR, Homebrew)
+- [ ] Web dashboard (optional, with WebSocket live updates)
 - [ ] REST API for remote management
 - [ ] Plugin system for custom network backends
+- [ ] Terraform provider
+- [ ] Ansible module
 
 ## 🤝 Contributing
 
