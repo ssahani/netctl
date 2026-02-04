@@ -110,13 +110,13 @@ sudo netctl show
 sudo netctl show eth0
 
 # Bring interface up
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state up
 
 # Configure IP address
 sudo netctl addr add eth0 192.168.1.100/24
 
 # Set MTU for jumbo frames
-sudo netctl link set eth0 --mtu 9000
+sudo netctl link set eth0 mtu 9000
 ```
 
 ### Example Output
@@ -216,15 +216,15 @@ netctl show eth0 --json
 
 ```bash
 # Bring interface up/down
-netctl link set eth0 --state up
-netctl link set eth0 --state down
+netctl link set eth0 state up
+netctl link set eth0 state down
 
 # Configure MTU
-netctl link set eth0 --mtu 1500      # Standard Ethernet
-netctl link set eth0 --mtu 9000      # Jumbo frames
+netctl link set eth0 mtu 1500      # Standard Ethernet
+netctl link set eth0 mtu 9000      # Jumbo frames
 
 # Set MAC address (requires interface down)
-netctl link set eth0 --mac 00:11:22:33:44:55
+netctl link set eth0 mac 00:11:22:33:44:55
 ```
 
 #### Address Management
@@ -289,16 +289,16 @@ netctl hostname machine-id
 ```bash
 # Complete static IP configuration workflow
 # Bring interface down for configuration
-sudo netctl link set eth0 --state down
+sudo netctl link set eth0 state down
 
 # Add static IP address with subnet
 sudo netctl addr add eth0 192.168.1.100/24
 
 # Set custom MTU if needed (default is 1500)
-sudo netctl link set eth0 --mtu 1500
+sudo netctl link set eth0 mtu 1500
 
 # Bring interface up
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state up
 
 # Configure DNS servers (primary and secondary)
 sudo netctl dns set eth0 192.168.1.1 8.8.8.8
@@ -331,9 +331,9 @@ netctl show eth0 --json | jq '.addresses[] | select(.family == "inet6")'
 ```bash
 # Configure MTU for jumbo frames (9000 bytes)
 # Requires network infrastructure support
-sudo netctl link set eth0 --state down
-sudo netctl link set eth0 --mtu 9000
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state down
+sudo netctl link set eth0 mtu 9000
+sudo netctl link set eth0 state up
 
 # Verify jumbo frame configuration
 netctl show eth0 | grep MTU
@@ -361,13 +361,13 @@ netctl show eth0 --json | jq '.addresses[].address'
 
 ```bash
 # Changing MAC address requires interface to be down
-sudo netctl link set eth0 --state down
+sudo netctl link set eth0 state down
 
 # Set new MAC address
-sudo netctl link set eth0 --mac 00:11:22:33:44:55
+sudo netctl link set eth0 mac 00:11:22:33:44:55
 
 # Bring interface back up
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state up
 
 # Verify MAC address change
 netctl show eth0 | grep MAC
@@ -426,7 +426,7 @@ down_interfaces=$(netctl show --json | jq -r '.[] | select(.state == "Down") | .
 
 for iface in $down_interfaces; do
     echo "Bringing up interface: $iface"
-    sudo netctl link set "$iface" --state up
+    sudo netctl link set "$iface" state up
 
     # Verify state change
     new_state=$(netctl show "$iface" --json | jq -r '.state')
@@ -483,7 +483,7 @@ for iface in "${CRITICAL_INTERFACES[@]}"; do
         logger -t netctl-health "Interface $iface is $state"
 
         # Attempt to bring it up
-        sudo netctl link set "$iface" --state up
+        sudo netctl link set "$iface" state up
     fi
 done
 ```
@@ -529,11 +529,11 @@ done
 
 # OLD: ifconfig eth0 up
 # NEW:
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state up
 
 # OLD: ifconfig eth0 down
 # NEW:
-sudo netctl link set eth0 --state down
+sudo netctl link set eth0 state down
 
 # OLD: ifconfig eth0 192.168.1.100 netmask 255.255.255.0
 # NEW:
@@ -541,7 +541,7 @@ sudo netctl addr add eth0 192.168.1.100/24
 
 # OLD: ifconfig eth0 mtu 9000
 # NEW:
-sudo netctl link set eth0 --mtu 9000
+sudo netctl link set eth0 mtu 9000
 
 # OLD: ip link show
 # NEW:
@@ -553,7 +553,7 @@ netctl show eth0
 
 # OLD: ip link set eth0 address 00:11:22:33:44:55
 # NEW:
-sudo netctl link set eth0 --mac 00:11:22:33:44:55
+sudo netctl link set eth0 mac 00:11:22:33:44:55
 ```
 
 ## 🔧 Development
@@ -647,7 +647,7 @@ cargo test --release
 
 ```bash
 # netctl requires root/CAP_NET_ADMIN for network operations
-sudo netctl link set eth0 --state up
+sudo netctl link set eth0 state up
 
 # Alternative: Add CAP_NET_ADMIN capability
 sudo setcap cap_net_admin+ep /usr/local/bin/netctl
