@@ -54,6 +54,13 @@ Built with Rust's safety guarantees and Tokio's async runtime, netctl offers a p
 - 💾 **Efficient** - Low memory footprint with Rust's zero-cost abstractions
 - 🔄 **Concurrent** - Multiple network operations executed in parallel
 
+### Innovative Features
+- 🎨 **Real-time TUI Dashboard** - Beautiful terminal UI with live network monitoring
+- 👁️ **Watch Mode** - Continuous monitoring with auto-refresh
+- 💾 **Network Profiles** - Save/load/switch complete network configurations
+- 🔄 **Configuration as Code** - YAML-based profile management for reproducible setups
+- 📸 **Instant Snapshots** - Save current network state and restore later
+
 ## 📦 Installation
 
 ### From Source
@@ -281,6 +288,94 @@ netctl hostname get
 # Get machine ID
 netctl hostname machine-id
 ```
+
+### Innovative Features
+
+#### Real-time TUI Dashboard
+
+Launch an interactive terminal dashboard with live network monitoring:
+
+```bash
+# Start the real-time dashboard
+sudo netctl dashboard
+
+# Features:
+# - Auto-refreshing interface list (1s intervals)
+# - Color-coded interface states (green=up, red=down)
+# - Real-time MTU and MAC address display
+# - Press 'q' to quit
+```
+
+The dashboard provides a beautiful, real-time view of your network interfaces with automatic updates.
+
+#### Watch Mode (Continuous Monitoring)
+
+Monitor interfaces with automatic refresh:
+
+```bash
+# Watch all interfaces (default 1s refresh)
+netctl watch
+
+# Watch specific interface
+netctl watch eth0
+
+# Custom refresh interval (5 seconds)
+netctl watch --interval 5
+
+# Watch specific interface with custom interval
+netctl watch wlan0 --interval 2
+```
+
+Watch mode clears the screen and refreshes the interface list automatically, perfect for monitoring network changes during configuration.
+
+#### Network Profiles (Save/Load Configurations)
+
+Save and restore complete network configurations:
+
+```bash
+# Save current network configuration as a profile
+sudo netctl profile save work --description "Office network setup"
+
+# List all saved profiles
+netctl profile list
+
+# Show profile details
+netctl profile show work
+
+# Load a saved profile
+sudo netctl profile load work
+
+# Delete a profile
+netctl profile delete work
+```
+
+**Profile Example:**
+
+```yaml
+# ~/.config/netctl/profiles/work.yaml
+name: work
+description: Office network setup
+created_at: '2026-02-04T02:30:15+00:00'
+interfaces:
+  - name: eth0
+    state: Up
+    mtu: 1500
+    mac_address: 52:54:00:12:34:56
+    addresses:
+      - 192.168.1.100/24
+  - name: wlan0
+    state: Down
+    mtu: 1500
+    mac_address: null
+    addresses: []
+```
+
+**Use Cases for Profiles:**
+- Switch between work/home/travel network configurations instantly
+- Backup network configuration before making changes
+- Share network setups across team members
+- Automate network configuration in scripts
+- Document network setups as code
 
 ### Real-World Examples
 
@@ -724,19 +819,27 @@ A: Absolutely! See the [Contributing](#-contributing) section below.
 - [x] Show command with JSON output
 - [x] 21 unit tests
 - [x] CI/CD pipeline
+- [x] **Real-time TUI dashboard** with ratatui
+- [x] **Watch mode** for continuous monitoring
+- [x] **Network profiles** (save/load/list/delete)
+- [x] **Cleaner CLI syntax** (property-based instead of flags)
 
 ### In Progress 🚧
 - [ ] Address deletion (blocked on rtnetlink API)
 - [ ] Route management
 - [ ] Integration tests
+- [ ] Profile auto-apply on network changes
 
 ### Planned 📋
 - [ ] Virtual device support (VLAN, bridge, bond, WireGuard)
-- [ ] Configuration file generation
-- [ ] Interactive wizards
-- [ ] Shell completion
+- [ ] Network topology visualization
+- [ ] Declarative configuration from files
+- [ ] Profile diff and merge capabilities
+- [ ] Network health monitoring with auto-healing
+- [ ] Shell completion (bash, zsh, fish)
 - [ ] Man pages
 - [ ] Package distribution (.deb, .rpm)
+- [ ] Web dashboard (optional)
 
 ## 🤝 Contributing
 

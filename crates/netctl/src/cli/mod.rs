@@ -1,6 +1,9 @@
 pub mod address;
+pub mod dashboard;
 pub mod link;
+pub mod profile;
 pub mod show;
+pub mod watch;
 
 use clap::{Parser, Subcommand};
 use miette::Result;
@@ -27,6 +30,15 @@ pub enum Commands {
     /// Manage IP addresses
     #[command(name = "addr")]
     Address(address::AddressCommand),
+
+    /// Real-time TUI dashboard
+    Dashboard(dashboard::DashboardArgs),
+
+    /// Watch interfaces (continuous monitoring)
+    Watch(watch::WatchArgs),
+
+    /// Manage network profiles (save/load configurations)
+    Profile(profile::ProfileCommand),
 }
 
 impl Cli {
@@ -35,6 +47,9 @@ impl Cli {
             Commands::Show(args) => args.execute().await,
             Commands::Link(cmd) => cmd.execute().await,
             Commands::Address(cmd) => cmd.execute().await,
+            Commands::Dashboard(args) => args.execute().await,
+            Commands::Watch(args) => args.execute().await,
+            Commands::Profile(cmd) => cmd.execute().await,
         }
     }
 }
