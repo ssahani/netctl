@@ -332,9 +332,17 @@ sudo netctl tui
 - **Professional design** - Beautiful terracotta borders and highlights
 
 **Keyboard Controls:**
+- `Tab` / `Shift+Tab` - Switch between views (Dashboard, Statistics, Configuration)
 - `↑` / `↓` or `j` / `k` - Navigate interfaces
+- `h` or `F1` - Toggle help overlay
+- `i` - Toggle stats bar
 - `q` / `Esc` - Quit
 - `Ctrl+C` - Force exit
+
+**Multiple Views:**
+- **📊 Dashboard** - Split-pane interface with list and details
+- **📈 Statistics** - Network statistics with gauges and metrics
+- **⚙️ Configuration** - Interactive configuration (coming soon)
 
 **Split Pane Layout:**
 ```

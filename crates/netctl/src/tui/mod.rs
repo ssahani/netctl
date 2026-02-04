@@ -80,6 +80,38 @@ pub async fn run(mut app: App) -> Result<()> {
 }
 
 fn handle_key_event(app: &mut App, key: KeyEvent, interface_count: usize) {
+    // Handle help overlay first
+    if app.show_help {
+        match key.code {
+            KeyCode::Char('q') | KeyCode::Esc | KeyCode::Char('h') | KeyCode::F(1) => {
+                app.toggle_help();
+            }
+            _ => {}
+        }
+        return;
+    }
+
+    // Handle searching
+    if app.is_searching {
+        match key.code {
+            KeyCode::Esc => {
+                app.cancel_search();
+            }
+            KeyCode::Enter => {
+                app.is_searching = false;
+            }
+            KeyCode::Backspace => {
+                app.backspace_search();
+            }
+            KeyCode::Char(c) => {
+                app.append_to_search(c);
+            }
+            _ => {}
+        }
+        return;
+    }
+
+    // Normal key handling
     match key.code {
         KeyCode::Char('q') | KeyCode::Esc => {
             app.quit();
@@ -87,11 +119,26 @@ fn handle_key_event(app: &mut App, key: KeyEvent, interface_count: usize) {
         KeyCode::Char('c') if key.modifiers.contains(KeyModifiers::CONTROL) => {
             app.quit();
         }
+        KeyCode::Tab => {
+            app.next_view();
+        }
+        KeyCode::BackTab => {
+            app.previous_view();
+        }
         KeyCode::Down | KeyCode::Char('j') => {
             app.next(interface_count);
         }
         KeyCode::Up | KeyCode::Char('k') => {
             app.previous();
+        }
+        KeyCode::Char('h') | KeyCode::F(1) => {
+            app.toggle_help();
+        }
+        KeyCode::Char('i') => {
+            app.toggle_stats_bar();
+        }
+        KeyCode::Char('/') => {
+            app.start_search();
         }
         _ => {}
     }
