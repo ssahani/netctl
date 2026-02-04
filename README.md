@@ -320,15 +320,45 @@ Launch an interactive terminal dashboard with live network monitoring:
 ```bash
 # Start the real-time TUI dashboard
 sudo netctl tui
-
-# Features:
-# - Auto-refreshing interface list (1s intervals)
-# - Color-coded interface states (green=up, red=down)
-# - Real-time MTU and MAC address display
-# - Press 'q' to quit
 ```
 
-The TUI provides a beautiful, real-time view of your network interfaces with automatic updates, using a stunning coral-orange color scheme inspired by Pantone 7416 C (matching guestkit's design).
+**Features:**
+- **Split-pane interface** - List (left) and Details (right)
+- **Live updates** - Auto-refresh every 250ms
+- **Interactive navigation** - ↑/↓ or j/k to navigate
+- **Selected interface details** - Realtime information display
+- **Color-coded states** - Green (UP) / Red (DOWN)
+- **Coral-orange theme** - Pantone 7416 C inspired (matching guestkit)
+- **Professional design** - Beautiful terracotta borders and highlights
+
+**Keyboard Controls:**
+- `↑` / `↓` or `j` / `k` - Navigate interfaces
+- `q` / `Esc` - Quit
+- `Ctrl+C` - Force exit
+
+**Split Pane Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  netctl - Network Configuration Manager                     │
+├──────────────────────────┬──────────────────────────────────┤
+│  🌐 Network Interfaces   │  📋 Details                      │
+│  ┌────────────────────┐  │  ┌────────────────────────────┐ │
+│  │ ▶ eth0    UP  1500 │  │  │ Interface: eth0            │ │
+│  │   wlan0  DOWN 1500 │  │  │                            │ │
+│  │   lo      UP 65536 │  │  │ Index: 2                   │ │
+│  └────────────────────┘  │  │ State: Up                  │ │
+│                          │  │ MTU: 1500                  │ │
+│                          │  │ MAC: 52:54:00:12:34:56     │ │
+│                          │  │                            │ │
+│                          │  │ IP Addresses:              │ │
+│                          │  │   • 192.168.1.100/24       │ │
+│                          │  └────────────────────────────┘ │
+├──────────────────────────┴──────────────────────────────────┤
+│  ↑/↓ Navigate  q/Esc Quit  Ctrl+C Exit                     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+The TUI provides a beautiful, professional interface with guestkit's stunning coral-orange color scheme (Pantone 7416 C), featuring split panes for efficient navigation and detailed interface inspection.
 
 #### Watch Mode (Continuous Monitoring)
 
