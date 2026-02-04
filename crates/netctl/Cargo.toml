@@ -16,6 +16,7 @@ netctl-types.workspace = true
 netctl-core.workspace = true
 tokio.workspace = true
 clap.workspace = true
+clap_complete.workspace = true
 inquire.workspace = true
 comfy-table.workspace = true
 colored.workspace = true

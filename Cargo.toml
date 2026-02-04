@@ -51,6 +51,7 @@ toml = "0.8"
 
 # CLI
 clap = { version = "4.4", features = ["derive", "env", "wrap_help", "cargo"] }
+clap_complete = "4.4"
 inquire = "0.7"
 comfy-table = "7.1"
 colored = "2.1"

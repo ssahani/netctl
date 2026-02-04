@@ -257,7 +257,7 @@ fn get_profile_dir() -> Result<PathBuf> {
     Ok(PathBuf::from(home).join(".config/netctl/profiles"))
 }
 
-fn load_profile(name: &str) -> Result<NetworkProfile> {
+pub fn load_profile(name: &str) -> Result<NetworkProfile> {
     let profile_path = get_profile_dir()?.join(format!("{}.yaml", name));
 
     if !profile_path.exists() {
