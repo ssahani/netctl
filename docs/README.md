@@ -11,4 +11,7 @@
 
 ## Enterprise
 
-Part of the HyperSDK networking stack. Production support: **[Zyvor AI Labs](https://zyvor.dev/)** · [Contact](https://zyvor.dev/contact) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
+| Guide | Description |
+|-------|-------------|
+| [Open source vs Enterprise](ce-vs-enterprise.md) | GitHub vs production platform |
+| [Enterprise guide](zyvor-enterprise.md) | Zyvor contact & product suite |

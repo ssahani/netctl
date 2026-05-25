@@ -1,8 +1,16 @@
 <div align="center">
 
+<p align="center">
+  <a href="https://zyvor.dev/?utm_source=github&utm_medium=netctl">
+    <img src="docs/img/zyvor-logo.webp" alt="Zyvor AI Labs — HyperSDK Platform" width="220">
+  </a>
+</p>
+
 # netctl
 
 ### Modern Network Configuration Tool for Linux
+
+<sub>Part of the HyperSDK networking stack · by Zyvor AI Labs</sub>
 
 [![CI](https://github.com/hypersdk/netctl/actions/workflows/ci.yml/badge.svg)](https://github.com/hypersdk/netctl/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/hypersdk/netctl)](https://github.com/hypersdk/netctl/releases)
@@ -28,6 +36,8 @@
 **netctl** is a modern, async-first network configuration tool for Linux, designed as a complete rewrite of network-config-manager in Rust. It provides a clean, intuitive CLI interface following the systemd naming convention (like `systemctl`, `hostnamectl`, `timedatectl`).
 
 Built with Rust's safety guarantees and Tokio's async runtime, netctl offers a production-ready solution for network management with full systemd integration.
+
+> **Enterprise & production:** [zyvor.dev](https://zyvor.dev/?utm_source=github&utm_medium=netctl) · [Contact sales](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
 
 ## ✨ Features
 
@@ -1420,15 +1430,41 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 
 <p align="center">
   <a href="https://zyvor.dev/">
-    <img src="docs/img/zyvor-logo.webp" alt="Zyvor AI Labs" width="200">
+    <img src="docs/img/zyvor-logo.webp" alt="Zyvor AI Labs" width="220">
   </a>
 </p>
 
+**netctl** is the open-source network configuration CLI in the [HyperSDK Platform](https://zyvor.dev/) (Zeus suite), engineered by [Zyvor AI Labs](https://zyvor.dev/).
+
+### Open source (this repository)
+
 - **GitHub Issues**: [hypersdk/netctl](https://github.com/hypersdk/netctl/issues)
 - **Documentation**: [docs/](docs/) · [Quick start](QUICKSTART.md)
-- **Enterprise**: [zyvor.dev](https://zyvor.dev/) · [Contact](https://zyvor.dev/contact) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
 
-Part of the HyperSDK networking stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig).
+### Enterprise — approach [zyvor.dev](https://zyvor.dev/)
+
+**Production workloads, SLAs, and platform integration are provided by Zyvor — not via GitHub Issues.**
+
+| | |
+|---|---|
+| **Platform** | **[zyvor.dev](https://zyvor.dev/)** |
+| **Sales & demos** | [sales@zyvor.dev](mailto:sales@zyvor.dev) |
+| **General inquiries** | [info@zyvor.dev](mailto:info@zyvor.dev) |
+| **Contact form** | [zyvor.dev/contact](https://zyvor.dev/contact) |
+
+#### Related networking products
+
+| Product | Focus |
+|---------|--------|
+| **[netctl](https://github.com/hypersdk/netctl)** (this repo) | Network configuration CLI |
+| **[netevd](https://github.com/hypersdk/netevd)** | Event hooks, policy routing |
+| **[cloud-netconfig](https://github.com/hypersdk/cloud-netconfig)** | Cloud metadata networking |
+| **[PacketWolf](https://zyvor.dev/packetwolf)** | eBPF observability |
+| **[HyperSDK Platform](https://zyvor.dev/hypersdk)** | VM export & migration |
+
+→ [Watch demo](https://zyvor.dev/demo?utm_source=github&utm_medium=netctl) · [Compare products](https://zyvor.dev/docs/products) · [Contact sales](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl)
+
+📄 [Open source vs Enterprise](docs/ce-vs-enterprise.md) · [Enterprise guide](docs/zyvor-enterprise.md)
 
 ## 🔗 Links
 
