@@ -10,12 +10,12 @@ members = [
 ]
 
 [workspace.package]
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 rust-version = "1.75"
 authors = ["netctl Contributors"]
 license = "Apache-2.0"
-repository = "https://github.com/vmware/netctl"
+repository = "https://github.com/hypersdk/netctl"
 
 [workspace.dependencies]
 # Internal crates

@@ -6,7 +6,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/vmware/netctl
+git clone https://github.com/hypersdk/netctl.git
 cd netctl
 
 # Build release binary

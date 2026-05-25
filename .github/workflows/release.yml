@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version
+        id: ver
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Changelog notes
+        run: |
+          VERSION=${{ steps.ver.outputs.version }}
+          sed -n "/## \[${VERSION}\]/,/## \[/p" CHANGELOG.md | sed '$d' > release_notes.md
+          test -s release_notes.md || echo "Release ${VERSION}" > release_notes.md
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build binaries
+        run: |
+          v=${{ steps.ver.outputs.version }}
+          cargo build --release -p netctl
+          for arch in amd64 arm64; do
+            if [ "$arch" = arm64 ]; then
+              rustup target add aarch64-unknown-linux-gnu
+              sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+              export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc
+              cargo build --release -p netctl --target aarch64-unknown-linux-gnu
+              bin=target/aarch64-unknown-linux-gnu/release/netctl
+            else
+              bin=target/release/netctl
+            fi
+            pkg=netctl-${v}-linux-${arch}
+            mkdir -p "${pkg}"
+            cp "${bin}" "${pkg}/netctl"
+            chmod +x "${pkg}/netctl"
+            cp README.md QUICKSTART.md LICENSE "${pkg}/"
+            tar czf "${pkg}.tar.gz" "${pkg}"
+            sha256sum "${pkg}.tar.gz" > "${pkg}.tar.gz.sha256"
+          done
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.ver.outputs.version }}
+          body_path: release_notes.md
+          files: |
+            netctl-${{ steps.ver.outputs.version }}-linux-amd64.tar.gz
+            netctl-${{ steps.ver.outputs.version }}-linux-amd64.tar.gz.sha256
+            netctl-${{ steps.ver.outputs.version }}-linux-arm64.tar.gz
+            netctl-${{ steps.ver.outputs.version }}-linux-arm64.tar.gz.sha256

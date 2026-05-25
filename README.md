@@ -4,7 +4,8 @@
 
 ### Modern Network Configuration Tool for Linux
 
-[![CI](https://github.com/ssahani/netctl/actions/workflows/ci.yml/badge.svg)](https://github.com/ssahani/netctl/actions)
+[![CI](https://github.com/hypersdk/netctl/actions/workflows/ci.yml/badge.svg)](https://github.com/hypersdk/netctl/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/hypersdk/netctl)](https://github.com/hypersdk/netctl/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![Platform](https://img.shields.io/badge/platform-Linux-lightgrey.svg)](https://www.linux.org)
@@ -1415,11 +1416,24 @@ Licensed under the Apache License, Version 2.0 ([LICENSE](LICENSE) or http://www
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you shall be licensed as above, without any additional terms or conditions.
 
+## Support
+
+<p align="center">
+  <a href="https://zyvor.dev/">
+    <img src="docs/img/zyvor-logo.webp" alt="Zyvor AI Labs" width="200">
+  </a>
+</p>
+
+- **GitHub Issues**: [hypersdk/netctl](https://github.com/hypersdk/netctl/issues)
+- **Documentation**: [docs/](docs/) · [Quick start](QUICKSTART.md)
+- **Enterprise**: [zyvor.dev](https://zyvor.dev/) · [Contact](https://zyvor.dev/contact) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
+
+Part of the HyperSDK networking stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig).
+
 ## 🔗 Links
 
-- **Repository**: https://github.com/ssahani/netctl
-- **Issue Tracker**: https://github.com/ssahani/netctl/issues
-- **Documentation**: [See docs/](docs/)
+- **Repository**: https://github.com/hypersdk/netctl
+- **Releases**: https://github.com/hypersdk/netctl/releases
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
 ---
