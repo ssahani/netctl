@@ -44,7 +44,7 @@ jobs:
             mkdir -p "${pkg}"
             cp "${bin}" "${pkg}/netctl"
             chmod +x "${pkg}/netctl"
-            cp README.md QUICKSTART.md LICENSE "${pkg}/"
+            cp README.md QUICKSTART.md "${pkg}/"
             tar czf "${pkg}.tar.gz" "${pkg}"
             sha256sum "${pkg}.tar.gz" > "${pkg}.tar.gz.sha256"
           done
