@@ -12,6 +12,9 @@ contact_links:
   - name: "ROI calculator"
     url: https://zyvor.dev/roi?utm_source=github&utm_medium=netctl
     about: Estimate migration and infrastructure savings
+  - name: "CE vs Enterprise"
+    url: https://github.com/hypersdk/netctl/blob/main/docs/enterprise.md
+    about: When to use GitHub vs contact Zyvor for production
   - name: "Discussions"
     url: https://github.com/hypersdk/netctl/discussions
     about: Community questions and ideas

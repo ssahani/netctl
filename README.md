@@ -101,7 +101,7 @@ Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/
 | **Pricing** | [zyvor.dev/pricing](https://zyvor.dev/pricing?utm_source=github&utm_medium=netctl) |
 | **Contact** | [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev) |
 
-Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) → contact Zyvor (not GitHub Issues).
+Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) → contact Zyvor (not GitHub Issues). Details: [docs/enterprise.md](docs/enterprise.md).
 
 ## License
 
