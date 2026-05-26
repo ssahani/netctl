@@ -1,5 +1,5 @@
 # Example network configuration file for netctl
-# Usage: sudo netctl apply examples/network-config.yaml
+# Usage: sudo netctl apply config/network-config.example.yaml
 
 interfaces:
   - name: eth0

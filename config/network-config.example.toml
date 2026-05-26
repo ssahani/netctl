@@ -1,5 +1,5 @@
 # Example network configuration file for netctl (TOML format)
-# Usage: sudo netctl apply examples/network-config.toml
+# Usage: sudo netctl apply config/network-config.example.toml
 
 [[interfaces]]
 name = "eth0"

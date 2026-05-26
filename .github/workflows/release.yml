@@ -18,11 +18,8 @@ jobs:
         id: ver
         run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      - name: Changelog notes
-        run: |
-          VERSION=${{ steps.ver.outputs.version }}
-          sed -n "/## \[${VERSION}\]/,/## \[/p" CHANGELOG.md | sed '$d' > release_notes.md
-          test -s release_notes.md || echo "Release ${VERSION}" > release_notes.md
+      - name: Release notes
+        run: echo "Release ${{ steps.ver.outputs.version }}" > release_notes.md
 
       - uses: dtolnay/rust-toolchain@stable
 
@@ -44,7 +41,7 @@ jobs:
             mkdir -p "${pkg}"
             cp "${bin}" "${pkg}/netctl"
             chmod +x "${pkg}/netctl"
-            cp README.md QUICKSTART.md "${pkg}/"
+            cp README.md "${pkg}/"
             tar czf "${pkg}.tar.gz" "${pkg}"
             sha256sum "${pkg}.tar.gz" > "${pkg}.tar.gz.sha256"
           done
