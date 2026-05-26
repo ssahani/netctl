@@ -9,13 +9,15 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 
-[Quick start](#quick-start) · [Releases](https://github.com/hypersdk/netctl/releases)
+[Quick start](#quick-start) · [Enterprise](#enterprise) · [Releases](https://github.com/hypersdk/netctl/releases)
 
 </div>
 
 ---
 
 Async-first network configuration manager with a `systemctl`-style interface. Integrates with **systemd-networkd**, **systemd-resolved**, and **systemd-hostnamed** over D-Bus, and uses **netlink** for link, address, and route operations.
+
+> **Enterprise:** production support and HyperSDK platform integration — [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [demo](https://zyvor.dev/demo?utm_source=github&utm_medium=netctl)
 
 ## Features
 
@@ -91,6 +93,10 @@ cargo clippy --workspace -- -D warnings
 ## Contributing
 
 Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/issues).
+
+## Enterprise
+
+Community edition covers CLI usage and declarative apply. For enterprise SLAs, supported rollouts, and the full networking stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig), see [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl).
 
 ## License
 
