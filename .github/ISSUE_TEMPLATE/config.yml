@@ -1,0 +1,20 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Watch platform demo"
+    url: https://zyvor.dev/demo?utm_source=github&utm_medium=netctl
+    about: Migration video and live dashboard — HyperSDK platform overview
+  - name: "Enterprise, sales and SLAs (Zyvor)"
+    url: https://zyvor.dev/contact?utm_source=github&utm_medium=netctl
+    about: Enterprise SLAs and supported rollouts — not for GitHub Issues
+  - name: "Email sales"
+    url: mailto:sales@zyvor.dev
+    about: sales@zyvor.dev — enterprise quotes
+  - name: "ROI calculator"
+    url: https://zyvor.dev/roi?utm_source=github&utm_medium=netctl
+    about: Estimate migration and infrastructure savings
+  - name: "Discussions"
+    url: https://github.com/hypersdk/netctl/discussions
+    about: Community questions and ideas
+  - name: "Security"
+    url: https://github.com/hypersdk/netctl/issues
+    about: For security issues, open a private report via the repository maintainer

@@ -17,8 +17,6 @@
 
 Async-first network configuration manager with a `systemctl`-style interface. Integrates with **systemd-networkd**, **systemd-resolved**, and **systemd-hostnamed** over D-Bus, and uses **netlink** for link, address, and route operations.
 
-> **Enterprise:** production support and HyperSDK platform integration — [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [demo](https://zyvor.dev/demo?utm_source=github&utm_medium=netctl)
-
 ## Features
 
 - Link, address, route, DNS, and hostname management
@@ -96,7 +94,14 @@ Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/
 
 ## Enterprise
 
-Community edition covers CLI usage and declarative apply. For enterprise SLAs, supported rollouts, and the full networking stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig), see [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl).
+| | |
+|---|---|
+| **Demo** | [zyvor.dev/demo](https://zyvor.dev/demo?utm_source=github&utm_medium=netctl) |
+| **ROI** | [zyvor.dev/roi](https://zyvor.dev/roi?utm_source=github&utm_medium=netctl) |
+| **Pricing** | [zyvor.dev/pricing](https://zyvor.dev/pricing?utm_source=github&utm_medium=netctl) |
+| **Contact** | [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev) |
+
+Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) → contact Zyvor (not GitHub Issues).
 
 ## License
 
