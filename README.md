@@ -105,7 +105,12 @@ Community Edition covers CLI usage and declarative apply. Enterprise SLAs and th
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE).
+| Document | Purpose |
+|----------|---------|
+| [LICENSE](LICENSE) | **Apache-2.0** — source code |
+| [ZYVOR-COMPANY-TERMS.md](ZYVOR-COMPANY-TERMS.md) | Zyvor brand / distribution |
+
+Enterprise: [sales@zyvor.dev](mailto:sales@zyvor.dev) · General: [info@zyvor.dev](mailto:info@zyvor.dev).
 
 ## Related
 
