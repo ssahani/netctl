@@ -1,6 +1,6 @@
 # Zyvor company terms — netctl distribution
 
-**Supplemental agreement — does not replace [LICENSE](LICENSE) (Apache-2.0).**
+**Supplemental agreement — read together with [LICENSE](LICENSE) (Apache-2.0).**
 
 **Company:** ZyvorAI Labs Private Limited · [zyvor.dev](https://zyvor.dev)  
 **Product:** netctl  
@@ -12,10 +12,10 @@
 
 | Layer | Governs |
 |-------|---------|
-| **[LICENSE](LICENSE)** | netctl **source code** — Apache-2.0 |
-| **This document** | **Zyvor-branded** builds, binaries, and zyvor.dev distribution |
+| **[LICENSE](LICENSE)** | netctl **software** — Apache-2.0 (proprietary; all rights reserved) |
+| **This document** | **Zyvor-branded** builds, binaries, customer bundles, and zyvor.dev distribution |
 
-You must comply with **both**. Open-source/free-software terms control the **source code**; this document covers **brand, distribution, and commercial relationship** with Zyvor.
+You must comply with **both**. The proprietary license controls use of the **software**; this document covers **brand, distribution, and commercial relationship** with Zyvor.
 
 ## 2. Acceptance
 
@@ -23,7 +23,7 @@ By downloading, building, deploying, installing, or using netctl binaries or cus
 
 ## 3. Company identity
 
-**ZyvorAI Labs Private Limited** — incorporated under the Companies Act, 2013 (India), registered office Pune, Maharashtra, India.
+**ZyvorAI Labs Private Limited** — incorporated under the Companies Act, 2013 (India).
 
 netctl is distributed under the **zyvor.dev** / **HyperSDK** product family.
 
