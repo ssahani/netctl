@@ -105,10 +105,9 @@ Community Edition covers CLI usage and declarative apply. Enterprise SLAs and th
 
 ## License
 
-| Document | Purpose |
-|----------|---------|
-| [LICENSE](LICENSE) | **Apache-2.0** — source code |
-| [ZYVOR-COMPANY-TERMS.md](ZYVOR-COMPANY-TERMS.md) | Zyvor brand / distribution |
+netctl Community Edition is licensed under the Apache License 2.0.
+netctl Enterprise Edition includes additional proprietary features and is licensed
+separately under a commercial license from Zyvor AI Labs Private Limited.
 
 Enterprise: [sales@zyvor.dev](mailto:sales@zyvor.dev) · General: [info@zyvor.dev](mailto:info@zyvor.dev).
 
