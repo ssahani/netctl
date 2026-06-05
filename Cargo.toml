@@ -13,7 +13,7 @@ members = [
 version = "1.0.1"
 edition = "2021"
 rust-version = "1.75"
-authors = ["netctl Contributors"]
+authors = ["ZyvorAI Labs Private Limited <info@zyvor.dev>"]
 license = "Apache-2.0"
 repository = "https://github.com/hypersdk/netctl"
 
