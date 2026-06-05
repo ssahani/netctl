@@ -9,7 +9,13 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 
-[Quick start](#quick-start) · [Enterprise](#enterprise) · [Releases](https://github.com/hypersdk/netctl/releases)
+[Quick start](#quick-start) · [Enterprise](#enterprise) · [Support the project](#support-the-project) · [Releases](https://github.com/hypersdk/netctl/releases)
+
+<p align="center">
+  <a href="https://zyvor.dev/demo?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Demo-F97316?style=flat-square" alt="Demo"/></a>
+  <a href="https://zyvor.dev/contact?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Contact_sales-22C55E?style=flat-square" alt="Contact"/></a>
+  <a href="https://github.com/sponsors/ssahani?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Sponsor-ssahani-ea4aaa?style=flat-square&logo=github-sponsors&logoColor=white" alt="Sponsor"/></a>
+</p>
 
 </div>
 
@@ -102,6 +108,18 @@ Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/
 | **Contact** | [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev) |
 
 Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) → contact Zyvor (not GitHub Issues). Details: [docs/enterprise.md](docs/enterprise.md).
+
+## Support the project
+
+netctl Community Edition is free and open source. If it saves you time, consider sponsoring ongoing development:
+
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-ssahani-ea4aaa?logo=github-sponsors&logoColor=white)](https://github.com/sponsors/ssahani?utm_source=github&utm_medium=netctl)
+
+Maintained by **Susant Sahani** · [Zyvor AI Labs](https://zyvor.dev?utm_source=github&utm_medium=netctl)
+
+- **Sponsor:** [github.com/sponsors/ssahani](https://github.com/sponsors/ssahani?utm_source=github&utm_medium=netctl)
+- **Enterprise / production:** [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
+- **Community help:** [GitHub Issues](https://github.com/hypersdk/netctl/issues)
 
 ## License
 
