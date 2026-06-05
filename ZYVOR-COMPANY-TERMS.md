@@ -12,10 +12,10 @@
 
 | Layer | Governs |
 |-------|---------|
-| **[LICENSE](LICENSE)** | netctl **software** — Apache-2.0 (proprietary; all rights reserved) |
+| **[LICENSE](LICENSE)** | netctl **software** — Apache-2.0 (Community Edition; open source) |
 | **This document** | **Zyvor-branded** builds, binaries, customer bundles, and zyvor.dev distribution |
 
-You must comply with **both**. The proprietary license controls use of the **software**; this document covers **brand, distribution, and commercial relationship** with Zyvor.
+You must comply with **both**. The Apache license controls use of the **Community Edition software**; this document covers **brand, distribution, and commercial relationship** with Zyvor.
 
 ## 2. Acceptance
 
