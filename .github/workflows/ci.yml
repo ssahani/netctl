@@ -46,20 +46,37 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev
       - run: cargo clippy --workspace -- -D warnings
 
-  build-musl:
+  # x86_64 musl builds natively on the ubuntu-latest (x86_64) runner -- no
+  # Docker/cross needed, and netctl has no C library dependencies (no
+  # openssl-sys/libdbus, netctl-dbus is pure Rust) so musl-tools is enough.
+  build-musl-x86_64:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target: [x86_64-unknown-linux-musl, aarch64-unknown-linux-musl]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}
+          targets: x86_64-unknown-linux-musl
       - uses: Swatinem/rust-cache@v2
-      - run: cargo install cross --git https://github.com/cross-rs/cross
-      - run: cross build --release --target ${{ matrix.target }}
+      - run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - run: cargo build --release --target x86_64-unknown-linux-musl
       - uses: actions/upload-artifact@v4
         with:
-          name: netctl-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/netctl
+          name: netctl-x86_64-unknown-linux-musl
+          path: target/x86_64-unknown-linux-musl/release/netctl
+
+  # aarch64 musl needs actual cross-compilation (different arch AND libc),
+  # so this one still goes through cross's Docker-based toolchain.
+  build-musl-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-linux-musl
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo install cross --git https://github.com/cross-rs/cross --tag v0.2.5
+      - run: cross build --release --target aarch64-unknown-linux-musl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: netctl-aarch64-unknown-linux-musl
+          path: target/aarch64-unknown-linux-musl/release/netctl
