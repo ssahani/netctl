@@ -131,7 +131,7 @@ impl ConnectivityArgs {
     fn test_interface_connectivity(&self, _interface: &str) -> Result<bool> {
         // Test basic connectivity with ping
         let output = Command::new("ping")
-            .args(&["-c", "1", "-W", "2", "8.8.8.8"])
+            .args(["-c", "1", "-W", "2", "8.8.8.8"])
             .output()
             .into_diagnostic()?;
 
@@ -184,10 +184,10 @@ impl PingArgs {
         println!();
 
         let mut cmd = Command::new("ping");
-        cmd.args(&["-c", &self.count.to_string(), &self.host]);
+        cmd.args(["-c", &self.count.to_string(), &self.host]);
 
         if let Some(ref iface) = self.interface {
-            cmd.args(&["-I", iface]);
+            cmd.args(["-I", iface]);
         }
 
         let output = cmd.output().into_diagnostic()?;
@@ -253,7 +253,7 @@ impl AllArgs {
             "Testing internet connectivity...".bold()
         );
         let output = Command::new("ping")
-            .args(&["-c", "2", "-W", "3", "8.8.8.8"])
+            .args(["-c", "2", "-W", "3", "8.8.8.8"])
             .output()
             .into_diagnostic()?;
 
@@ -285,7 +285,7 @@ impl AllArgs {
         // Test 4: systemd-networkd
         println!("{} {}", "4.".cyan(), "Testing systemd-networkd...".bold());
         let output = Command::new("systemctl")
-            .args(&["is-active", "systemd-networkd"])
+            .args(["is-active", "systemd-networkd"])
             .output()
             .into_diagnostic()?;
 
@@ -302,7 +302,7 @@ impl AllArgs {
         // Test 5: systemd-resolved
         println!("{} {}", "5.".cyan(), "Testing systemd-resolved...".bold());
         let output = Command::new("systemctl")
-            .args(&["is-active", "systemd-resolved"])
+            .args(["is-active", "systemd-resolved"])
             .output()
             .into_diagnostic()?;
 
