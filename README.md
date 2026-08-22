@@ -115,6 +115,13 @@ Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/
 
 ## Enterprise
 
+| | Community Edition (this repo) | Enterprise ([zyvor.dev](https://zyvor.dev/?utm_source=github&utm_medium=netctl)) |
+|---|------------------------------|-------------------------------------------------------------------------------------|
+| **Support** | [GitHub Issues](https://github.com/hypersdk/netctl/issues) | SLA, [sales@zyvor.dev](mailto:sales@zyvor.dev), professional services |
+| **Scope** | CLI and declarative apply | Supported rollouts with netevd and cloud-netconfig |
+| **Platform** | netctl | Full HyperSDK networking and migration stack |
+| **Features** | Link/address/route/DNS/hostname management, declarative YAML/TOML apply, `doctor` diagnostics, TUI, shell completions | Same feature set, operated at fleet scale with SLA-backed support |
+
 | | |
 |---|---|
 | **Demo** | [zyvor.dev/demo](https://zyvor.dev/demo?utm_source=github&utm_medium=netctl) |
