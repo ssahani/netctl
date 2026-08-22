@@ -13,8 +13,9 @@
 
 <p align="center">
   <a href="https://zyvor.dev/demo?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Demo-F97316?style=flat-square" alt="Demo"/></a>
+  <a href="https://zyvor.dev/docs?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Docs-2563EB?style=flat-square" alt="Docs"/></a>
+  <a href="https://zyvor.dev/blog?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Blog-71717A?style=flat-square" alt="Blog"/></a>
   <a href="https://zyvor.dev/contact?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Contact_sales-22C55E?style=flat-square" alt="Contact"/></a>
-  <a href="https://razorpay.me/@zyvorAILabs"><img src="https://img.shields.io/badge/Sponsor-Zyvor%20AI%20Labs-0c2451?style=flat-square&logo=razorpay&logoColor=white" alt="Sponsor"/></a>
 </p>
 
 </div>
@@ -133,13 +134,8 @@ Community Edition covers CLI usage and declarative apply. Enterprise SLAs and th
 
 ## Support the project
 
-netctl Community Edition is free and open source. If it saves you time, consider sponsoring ongoing development:
+netctl Community Edition is free and open source, maintained by **Susant Sahani** · [Zyvor AI Labs](https://zyvor.dev?utm_source=github&utm_medium=netctl)
 
-[![Sponsor on Razorpay](https://img.shields.io/badge/Sponsor-Zyvor%20AI%20Labs-0c2451?logo=razorpay&logoColor=white)](https://razorpay.me/@zyvorAILabs)
-
-Maintained by **Susant Sahani** · [Zyvor AI Labs](https://zyvor.dev?utm_source=github&utm_medium=netctl)
-
-- **Sponsor:** [razorpay.me/@zyvorAILabs](https://razorpay.me/@zyvorAILabs)
 - **Enterprise / production:** [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
 - **Community help:** [GitHub Issues](https://github.com/hypersdk/netctl/issues)
 
