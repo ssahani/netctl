@@ -23,6 +23,21 @@
 
 Async-first network configuration manager with a `systemctl`-style interface. Integrates with **systemd-networkd**, **systemd-resolved**, and **systemd-hostnamed** over D-Bus, and uses **netlink** for link, address, and route operations.
 
+## Table of contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [Configuration samples](#configuration-samples)
+- [Architecture](#architecture)
+- [Development](#development)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Enterprise](#enterprise)
+- [Support the project](#support-the-project)
+- [License](#license)
+- [Related](#related)
+
 ## Features
 
 - Link, address, route, DNS, and hostname management
