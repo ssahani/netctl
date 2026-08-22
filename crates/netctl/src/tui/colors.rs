@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 // Color theme - Coral-Terracotta Orange (Pantone 7416 C inspired)
 // Matching guestkit's beautiful color scheme
 

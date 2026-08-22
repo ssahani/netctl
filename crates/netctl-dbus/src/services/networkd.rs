@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 use async_trait::async_trait;
 use netctl_types::{Error, Result};
 use std::sync::Arc;

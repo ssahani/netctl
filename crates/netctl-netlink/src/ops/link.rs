@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 use crate::NetlinkHandle;
 use async_trait::async_trait;
 use netctl_types::{Error, LinkInfo, LinkState, MacAddress, Result};

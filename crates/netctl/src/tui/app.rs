@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 use super::colors::*;
 use miette::Result;
 use netctl_core::NetworkManager;

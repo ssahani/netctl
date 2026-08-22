@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 use clap::{Args, CommandFactory};
 use clap_complete::{generate, Shell};
 use miette::Result;

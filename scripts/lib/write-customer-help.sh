@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright 2026 Zyvor AI Labs Private Limited
+# SPDX-License-Identifier: Apache-2.0
+
 # Generate HELP.txt for a customer tarball directory.
 # Usage: write-customer-help.sh <stage-dir> <product-name> <kind>
 #   kind: k8s | host | platform | minimal

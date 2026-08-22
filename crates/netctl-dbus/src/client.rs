@@ -1,3 +1,6 @@
+// Copyright 2026 Zyvor AI Labs Private Limited
+// SPDX-License-Identifier: Apache-2.0
+
 use crate::services::{HostnamedService, NetworkdService, ResolvedService};
 use netctl_types::Result;
 use std::sync::Arc;
