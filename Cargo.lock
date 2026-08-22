@@ -1100,7 +1100,7 @@ dependencies = [
 
 [[package]]
 name = "netctl"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "chrono",
  "clap",
@@ -1124,7 +1124,7 @@ dependencies = [
 
 [[package]]
 name = "netctl-config"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "netctl-types",
  "serde",
@@ -1136,7 +1136,7 @@ dependencies = [
 
 [[package]]
 name = "netctl-core"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "async-trait",
  "netctl-config",
@@ -1149,7 +1149,7 @@ dependencies = [
 
 [[package]]
 name = "netctl-dbus"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "async-trait",
  "netctl-types",
@@ -1160,7 +1160,7 @@ dependencies = [
 
 [[package]]
 name = "netctl-netlink"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "async-trait",
  "futures",
@@ -1175,7 +1175,7 @@ dependencies = [
 
 [[package]]
 name = "netctl-types"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "async-trait",
  "miette",
