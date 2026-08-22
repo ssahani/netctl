@@ -63,7 +63,10 @@ impl ExportArgs {
         // Filter interfaces if specified
         let filtered_links: Vec<_> = if let Some(ref iface_list) = self.interfaces {
             let names: Vec<&str> = iface_list.split(',').map(|s| s.trim()).collect();
-            links.into_iter().filter(|l| names.contains(&l.name.as_str())).collect()
+            links
+                .into_iter()
+                .filter(|l| names.contains(&l.name.as_str()))
+                .collect()
         } else {
             links
         };
@@ -106,7 +109,8 @@ impl ExportArgs {
                 }
             }
             "toml" => toml::to_string_pretty(&config).into_diagnostic()?,
-            "yaml" | _ => serde_yaml::to_string(&config).into_diagnostic()?,
+            // "yaml" and anything unrecognized both fall back to YAML.
+            _ => serde_yaml::to_string(&config).into_diagnostic()?,
         };
 
         fs::write(&self.output, content).into_diagnostic()?;

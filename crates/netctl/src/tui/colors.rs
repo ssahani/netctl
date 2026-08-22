@@ -28,10 +28,12 @@ pub const BORDER_COLOR: Color = DARK_ORANGE;
 pub const SUCCESS_COLOR: Color = Color::Rgb(50, 205, 50);
 
 /// Deeper yellow for warnings
+#[allow(dead_code)] // part of the palette; not yet wired into a view
 pub const WARNING_COLOR: Color = Color::Rgb(255, 200, 0);
 
 /// Deep red for errors
 pub const ERROR_COLOR: Color = Color::Rgb(220, 50, 47);
 
 /// Soft blue for info
+#[allow(dead_code)] // part of the palette; not yet wired into a view
 pub const INFO_COLOR: Color = Color::Rgb(100, 150, 255);

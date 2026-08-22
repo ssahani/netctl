@@ -39,6 +39,7 @@ pub struct App {
     pub manager: NetworkManager,
     pub should_quit: bool,
     pub selected_index: usize,
+    #[allow(dead_code)] // reserved for scrollable views, not yet wired up
     pub scroll_offset: usize,
     pub current_view: View,
     pub show_help: bool,
@@ -80,14 +81,20 @@ impl App {
 
     pub fn next_view(&mut self) {
         let views = View::all();
-        let current_idx = views.iter().position(|v| v == &self.current_view).unwrap_or(0);
+        let current_idx = views
+            .iter()
+            .position(|v| v == &self.current_view)
+            .unwrap_or(0);
         self.current_view = views[(current_idx + 1) % views.len()];
         self.selected_index = 0;
     }
 
     pub fn previous_view(&mut self) {
         let views = View::all();
-        let current_idx = views.iter().position(|v| v == &self.current_view).unwrap_or(0);
+        let current_idx = views
+            .iter()
+            .position(|v| v == &self.current_view)
+            .unwrap_or(0);
         self.current_view = views[(current_idx + views.len() - 1) % views.len()];
         self.selected_index = 0;
     }
@@ -124,18 +131,18 @@ impl App {
         // Create main layout with optional stats bar
         let constraints = if self.show_stats_bar {
             vec![
-                Constraint::Length(3),  // Header
-                Constraint::Length(2),  // Stats bar
-                Constraint::Length(3),  // Tabs
-                Constraint::Min(0),     // Main content
-                Constraint::Length(3),  // Footer
+                Constraint::Length(3), // Header
+                Constraint::Length(2), // Stats bar
+                Constraint::Length(3), // Tabs
+                Constraint::Min(0),    // Main content
+                Constraint::Length(3), // Footer
             ]
         } else {
             vec![
-                Constraint::Length(3),  // Header
-                Constraint::Length(3),  // Tabs
-                Constraint::Min(0),     // Main content
-                Constraint::Length(3),  // Footer
+                Constraint::Length(3), // Header
+                Constraint::Length(3), // Tabs
+                Constraint::Min(0),    // Main content
+                Constraint::Length(3), // Footer
             ]
         };
 
@@ -180,16 +187,23 @@ impl App {
     }
 
     fn render_header(&self, frame: &mut Frame, area: Rect) {
-        let header_text = vec![
-            Line::from(vec![
-                Span::styled("netctl", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::raw(" - "),
-                Span::styled("Network Configuration Manager", Style::default().fg(LIGHT_ORANGE)),
-                Span::raw("  │  "),
-                Span::raw(format!("{} ", self.current_view.icon())),
-                Span::styled(self.current_view.title(), Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ])
-        ];
+        let header_text = vec![Line::from(vec![
+            Span::styled(
+                "netctl",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::raw(" - "),
+            Span::styled(
+                "Network Configuration Manager",
+                Style::default().fg(LIGHT_ORANGE),
+            ),
+            Span::raw("  │  "),
+            Span::raw(format!("{} ", self.current_view.icon())),
+            Span::styled(
+                self.current_view.title(),
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+        ])];
 
         let header = Paragraph::new(header_text)
             .alignment(Alignment::Center)
@@ -205,25 +219,38 @@ impl App {
     }
 
     async fn render_stats_bar(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
-        let interfaces = match self.manager.list_links().await {
-            Ok(links) => links,
-            Err(_) => Vec::new(),
-        };
+        let interfaces = self.manager.list_links().await.unwrap_or_default();
 
         let total = interfaces.len();
-        let up = interfaces.iter().filter(|i| matches!(i.state, netctl_types::network::LinkState::Up)).count();
+        let up = interfaces
+            .iter()
+            .filter(|i| matches!(i.state, netctl_types::network::LinkState::Up))
+            .count();
         let down = total - up;
 
         let stats_text = Line::from(vec![
             Span::styled("📊 ", Style::default().fg(ORANGE)),
             Span::styled("Total:", Style::default().fg(LIGHT_ORANGE)),
-            Span::styled(format!(" {} ", total), Style::default().fg(TEXT_COLOR).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                format!(" {} ", total),
+                Style::default().fg(TEXT_COLOR).add_modifier(Modifier::BOLD),
+            ),
             Span::raw("│ "),
             Span::styled("Up:", Style::default().fg(LIGHT_ORANGE)),
-            Span::styled(format!(" {} ", up), Style::default().fg(SUCCESS_COLOR).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                format!(" {} ", up),
+                Style::default()
+                    .fg(SUCCESS_COLOR)
+                    .add_modifier(Modifier::BOLD),
+            ),
             Span::raw("│ "),
             Span::styled("Down:", Style::default().fg(LIGHT_ORANGE)),
-            Span::styled(format!(" {} ", down), Style::default().fg(ERROR_COLOR).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                format!(" {} ", down),
+                Style::default()
+                    .fg(ERROR_COLOR)
+                    .add_modifier(Modifier::BOLD),
+            ),
         ]);
 
         let stats = Paragraph::new(stats_text)
@@ -251,7 +278,10 @@ impl App {
             })
             .collect();
 
-        let selected_idx = views.iter().position(|v| v == &self.current_view).unwrap_or(0);
+        let selected_idx = views
+            .iter()
+            .position(|v| v == &self.current_view)
+            .unwrap_or(0);
 
         let tabs = Tabs::new(titles)
             .block(
@@ -271,8 +301,8 @@ impl App {
         let main_chunks = Layout::default()
             .direction(Direction::Horizontal)
             .constraints([
-                Constraint::Percentage(60),  // Interface list
-                Constraint::Percentage(40),  // Details pane
+                Constraint::Percentage(60), // Interface list
+                Constraint::Percentage(40), // Details pane
             ])
             .split(area);
 
@@ -286,21 +316,21 @@ impl App {
     }
 
     async fn render_statistics(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
-        let interfaces = match self.manager.list_links().await {
-            Ok(links) => links,
-            Err(_) => Vec::new(),
-        };
+        let interfaces = self.manager.list_links().await.unwrap_or_default();
 
         let total = interfaces.len() as u16;
-        let up = interfaces.iter().filter(|i| matches!(i.state, netctl_types::network::LinkState::Up)).count() as u16;
-        let up_pct = if total > 0 { (up * 100) / total } else { 0 };
+        let up = interfaces
+            .iter()
+            .filter(|i| matches!(i.state, netctl_types::network::LinkState::Up))
+            .count() as u16;
+        let up_pct = (up * 100).checked_div(total).unwrap_or(0);
 
         // Split into gauges
         let chunks = Layout::default()
             .direction(Direction::Vertical)
             .constraints([
-                Constraint::Length(6),  // Interface gauge
-                Constraint::Min(0),     // Statistics table
+                Constraint::Length(6), // Interface gauge
+                Constraint::Min(0),    // Statistics table
             ])
             .split(area);
 
@@ -322,9 +352,10 @@ impl App {
 
         // Statistics info
         let mut lines = vec![
-            Line::from(vec![
-                Span::styled("Network Statistics", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Network Statistics",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            )]),
             Line::from(""),
             Line::from(vec![
                 Span::styled("Total Interfaces: ", Style::default().fg(TEXT_COLOR)),
@@ -342,28 +373,36 @@ impl App {
 
         for iface in &interfaces {
             let state_text = match iface.state {
-                netctl_types::network::LinkState::Up => Span::styled("UP", Style::default().fg(SUCCESS_COLOR)),
-                netctl_types::network::LinkState::Down => Span::styled("DOWN", Style::default().fg(ERROR_COLOR)),
+                netctl_types::network::LinkState::Up => {
+                    Span::styled("UP", Style::default().fg(SUCCESS_COLOR))
+                }
+                netctl_types::network::LinkState::Down => {
+                    Span::styled("DOWN", Style::default().fg(ERROR_COLOR))
+                }
             };
 
             lines.push(Line::from(""));
             lines.push(Line::from(vec![
-                Span::styled(&iface.name, Style::default().fg(LIGHT_ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    &iface.name,
+                    Style::default()
+                        .fg(LIGHT_ORANGE)
+                        .add_modifier(Modifier::BOLD),
+                ),
                 Span::raw(": "),
                 state_text,
                 Span::raw(format!(" (MTU: {})", iface.mtu)),
             ]));
         }
 
-        let stats_para = Paragraph::new(lines)
-            .block(
-                Block::default()
-                    .borders(Borders::ALL)
-                    .border_type(BorderType::Rounded)
-                    .border_style(Style::default().fg(BORDER_COLOR))
-                    .title(" 📊 Statistics ")
-                    .title_style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            );
+        let stats_para = Paragraph::new(lines).block(
+            Block::default()
+                .borders(Borders::ALL)
+                .border_type(BorderType::Rounded)
+                .border_style(Style::default().fg(BORDER_COLOR))
+                .title(" 📊 Statistics ")
+                .title_style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+        );
 
         frame.render_widget(stats_para, chunks[1]);
         Ok(())
@@ -371,13 +410,15 @@ impl App {
 
     async fn render_configuration(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
         let text = vec![
-            Line::from(vec![
-                Span::styled("Configuration View", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Configuration View",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            )]),
             Line::from(""),
-            Line::from(vec![
-                Span::styled("Coming soon:", Style::default().fg(TEXT_COLOR)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Coming soon:",
+                Style::default().fg(TEXT_COLOR),
+            )]),
             Line::from(""),
             Line::from(vec![
                 Span::raw("  • "),
@@ -396,26 +437,30 @@ impl App {
                 Span::styled("Apply profiles", Style::default().fg(LIGHT_ORANGE)),
             ]),
             Line::from(""),
-            Line::from(vec![
-                Span::styled("Use CLI commands for now:", Style::default().fg(TEXT_COLOR).add_modifier(Modifier::ITALIC)),
-            ]),
-            Line::from(vec![
-                Span::styled("  netctl link set <iface> state up", Style::default().fg(SUCCESS_COLOR)),
-            ]),
-            Line::from(vec![
-                Span::styled("  netctl addr add <iface> <ip>/24", Style::default().fg(SUCCESS_COLOR)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Use CLI commands for now:",
+                Style::default()
+                    .fg(TEXT_COLOR)
+                    .add_modifier(Modifier::ITALIC),
+            )]),
+            Line::from(vec![Span::styled(
+                "  netctl link set <iface> state up",
+                Style::default().fg(SUCCESS_COLOR),
+            )]),
+            Line::from(vec![Span::styled(
+                "  netctl addr add <iface> <ip>/24",
+                Style::default().fg(SUCCESS_COLOR),
+            )]),
         ];
 
-        let config = Paragraph::new(text)
-            .block(
-                Block::default()
-                    .borders(Borders::ALL)
-                    .border_type(BorderType::Rounded)
-                    .border_style(Style::default().fg(BORDER_COLOR))
-                    .title(" ⚙️  Configuration ")
-                    .title_style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            );
+        let config = Paragraph::new(text).block(
+            Block::default()
+                .borders(Borders::ALL)
+                .border_type(BorderType::Rounded)
+                .border_style(Style::default().fg(BORDER_COLOR))
+                .title(" ⚙️  Configuration ")
+                .title_style(Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+        );
 
         frame.render_widget(config, area);
         Ok(())
@@ -428,55 +473,93 @@ impl App {
         let popup_area = centered_rect(60, 70, area);
 
         let help_text = vec![
-            Line::from(vec![
-                Span::styled("Keyboard Shortcuts", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Keyboard Shortcuts",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            )]),
             Line::from(""),
             Line::from(vec![
-                Span::styled("Tab", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "Tab",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::raw(" / "),
-                Span::styled("Shift+Tab", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "Shift+Tab",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Switch views", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(vec![
-                Span::styled("↑/↓", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "↑/↓",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::raw(" or "),
-                Span::styled("j/k", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "j/k",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Navigate interfaces", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(vec![
-                Span::styled("i", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "i",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Toggle stats bar", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(vec![
-                Span::styled("h", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "h",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::raw(" or "),
-                Span::styled("F1", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "F1",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Toggle this help", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(vec![
-                Span::styled("q", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "q",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::raw(" or "),
-                Span::styled("Esc", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "Esc",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Quit", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(vec![
-                Span::styled("Ctrl+C", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "Ctrl+C",
+                    Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(" - Force exit", Style::default().fg(TEXT_COLOR)),
             ]),
             Line::from(""),
-            Line::from(vec![
-                Span::styled("Views:", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ]),
+            Line::from(vec![Span::styled(
+                "Views:",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            )]),
             Line::from(vec![
                 Span::raw("  📊 "),
                 Span::styled("Dashboard", Style::default().fg(LIGHT_ORANGE)),
-                Span::styled(" - Interface list with details", Style::default().fg(TEXT_COLOR)),
+                Span::styled(
+                    " - Interface list with details",
+                    Style::default().fg(TEXT_COLOR),
+                ),
             ]),
             Line::from(vec![
                 Span::raw("  📈 "),
                 Span::styled("Statistics", Style::default().fg(LIGHT_ORANGE)),
-                Span::styled(" - Network stats and gauges", Style::default().fg(TEXT_COLOR)),
+                Span::styled(
+                    " - Network stats and gauges",
+                    Style::default().fg(TEXT_COLOR),
+                ),
             ]),
             Line::from(vec![
                 Span::raw("  ⚙️  "),
@@ -501,10 +584,7 @@ impl App {
     }
 
     async fn render_interface_list(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
-        let interfaces = match self.manager.list_links().await {
-            Ok(links) => links,
-            Err(_) => Vec::new(),
-        };
+        let interfaces = self.manager.list_links().await.unwrap_or_default();
 
         if interfaces.is_empty() {
             let empty = Paragraph::new("⚠️  No network interfaces found")
@@ -539,14 +619,22 @@ impl App {
                     style = style.bg(DARK_ORANGE).add_modifier(Modifier::BOLD);
                 }
 
-                let indicator = if idx == self.selected_index { "▶" } else { " " };
+                let indicator = if idx == self.selected_index {
+                    "▶"
+                } else {
+                    " "
+                };
 
                 Row::new(vec![
                     indicator.to_string(),
                     iface.name.clone(),
                     format!("{:?}", iface.state),
                     iface.mtu.to_string(),
-                    iface.mac_address.as_ref().map(|m| m.to_string()).unwrap_or_else(|| "-".to_string()),
+                    iface
+                        .mac_address
+                        .as_ref()
+                        .map(|m| m.to_string())
+                        .unwrap_or_else(|| "-".to_string()),
                 ])
                 .style(style)
             })
@@ -578,15 +666,15 @@ impl App {
     }
 
     async fn render_details(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
-        let interfaces = match self.manager.list_links().await {
-            Ok(links) => links,
-            Err(_) => Vec::new(),
-        };
+        let interfaces = self.manager.list_links().await.unwrap_or_default();
 
         if let Some(iface) = interfaces.get(self.selected_index) {
             let mut lines = vec![
                 Line::from(vec![
-                    Span::styled("Interface: ", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
+                    Span::styled(
+                        "Interface: ",
+                        Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+                    ),
                     Span::styled(&iface.name, Style::default().fg(LIGHT_ORANGE)),
                 ]),
                 Line::from(""),
@@ -601,7 +689,7 @@ impl App {
                         Style::default().fg(match iface.state {
                             netctl_types::network::LinkState::Up => SUCCESS_COLOR,
                             netctl_types::network::LinkState::Down => ERROR_COLOR,
-                        })
+                        }),
                     ),
                 ]),
                 Line::from(vec![
@@ -618,14 +706,18 @@ impl App {
             }
 
             lines.push(Line::from(""));
-            lines.push(Line::from(vec![
-                Span::styled("IP Addresses:", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            ]));
+            lines.push(Line::from(vec![Span::styled(
+                "IP Addresses:",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            )]));
 
             if iface.addresses.is_empty() {
-                lines.push(Line::from(vec![
-                    Span::styled("  No addresses configured", Style::default().fg(TEXT_COLOR).add_modifier(Modifier::ITALIC)),
-                ]));
+                lines.push(Line::from(vec![Span::styled(
+                    "  No addresses configured",
+                    Style::default()
+                        .fg(TEXT_COLOR)
+                        .add_modifier(Modifier::ITALIC),
+                )]));
             } else {
                 for addr in &iface.addresses {
                     lines.push(Line::from(vec![
@@ -649,7 +741,11 @@ impl App {
             frame.render_widget(details, area);
         } else {
             let empty = Paragraph::new("Select an interface to view details")
-                .style(Style::default().fg(TEXT_COLOR).add_modifier(Modifier::ITALIC))
+                .style(
+                    Style::default()
+                        .fg(TEXT_COLOR)
+                        .add_modifier(Modifier::ITALIC),
+                )
                 .block(
                     Block::default()
                         .borders(Borders::ALL)
@@ -665,16 +761,23 @@ impl App {
     }
 
     fn render_footer(&self, frame: &mut Frame, area: Rect) {
-        let footer_text = vec![
-            Line::from(vec![
-                Span::styled("↑/↓", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::styled(" Navigate  ", Style::default().fg(TEXT_COLOR)),
-                Span::styled("q/Esc", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::styled(" Quit  ", Style::default().fg(TEXT_COLOR)),
-                Span::styled("Ctrl+C", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::styled(" Exit", Style::default().fg(TEXT_COLOR)),
-            ])
-        ];
+        let footer_text = vec![Line::from(vec![
+            Span::styled(
+                "↑/↓",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(" Navigate  ", Style::default().fg(TEXT_COLOR)),
+            Span::styled(
+                "q/Esc",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(" Quit  ", Style::default().fg(TEXT_COLOR)),
+            Span::styled(
+                "Ctrl+C",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(" Exit", Style::default().fg(TEXT_COLOR)),
+        ])];
 
         let footer = Paragraph::new(footer_text)
             .alignment(Alignment::Center)

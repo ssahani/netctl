@@ -32,7 +32,11 @@ impl WizardArgs {
             .prompt()
             .into_diagnostic()?;
 
-        println!("\n{} Selected interface: {}\n", "✓".green(), interface.cyan());
+        println!(
+            "\n{} Selected interface: {}\n",
+            "✓".green(),
+            interface.cyan()
+        );
 
         // What to configure
         let options = vec![
@@ -117,7 +121,11 @@ impl WizardArgs {
                 }
                 "down" => {
                     mgr.set_link_down(interface).await?;
-                    println!("\n{} Interface {} is now down", "✓".green(), interface.cyan());
+                    println!(
+                        "\n{} Interface {} is now down",
+                        "✓".green(),
+                        interface.cyan()
+                    );
                 }
                 _ => {}
             }
@@ -145,9 +153,7 @@ impl WizardArgs {
             "9000 (Jumbo Frames)" => 9000,
             "1280 (IPv6 minimum)" => 1280,
             "Custom value" => {
-                let custom = Text::new("Enter MTU value:")
-                    .prompt()
-                    .into_diagnostic()?;
+                let custom = Text::new("Enter MTU value:").prompt().into_diagnostic()?;
                 custom.parse().into_diagnostic()?
             }
             _ => 1500,
@@ -159,7 +165,12 @@ impl WizardArgs {
             .into_diagnostic()?
         {
             mgr.set_mtu(interface, mtu).await?;
-            println!("\n{} MTU set to {} for {}", "✓".green(), mtu, interface.cyan());
+            println!(
+                "\n{} MTU set to {} for {}",
+                "✓".green(),
+                mtu,
+                interface.cyan()
+            );
         }
 
         Ok(())

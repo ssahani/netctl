@@ -132,7 +132,11 @@ impl CreateArgs {
         let json = serde_json::to_string_pretty(&backup).into_diagnostic()?;
         fs::write(&backup_path, json).into_diagnostic()?;
 
-        println!("{} Backup '{}' created successfully", "✓".green(), self.name.green());
+        println!(
+            "{} Backup '{}' created successfully",
+            "✓".green(),
+            self.name.green()
+        );
         println!("  Location: {}", backup_path.display());
         println!("  Interfaces: {}", backup.interfaces.len());
         println!();
@@ -179,7 +183,10 @@ impl RestoreArgs {
 
         let auto_backup = Backup {
             name: auto_backup_name.clone(),
-            description: Some(format!("Automatic backup before restoring '{}'", backup.name)),
+            description: Some(format!(
+                "Automatic backup before restoring '{}'",
+                backup.name
+            )),
             created_at: chrono::Utc::now().to_rfc3339(),
             interfaces: current_links
                 .into_iter()
@@ -199,7 +206,11 @@ impl RestoreArgs {
         let json = serde_json::to_string_pretty(&auto_backup).into_diagnostic()?;
         fs::write(&auto_backup_path, json).into_diagnostic()?;
 
-        println!("{} Current state backed up as '{}'", "✓".green(), auto_backup_name.cyan());
+        println!(
+            "{} Current state backed up as '{}'",
+            "✓".green(),
+            auto_backup_name.cyan()
+        );
         println!();
 
         // Apply backup configuration
@@ -226,7 +237,10 @@ impl RestoreArgs {
 
         println!();
         println!("{} Backup restored successfully", "✓".green().bold());
-        println!("{}", "Note: Address restoration requires manual configuration".yellow());
+        println!(
+            "{}",
+            "Note: Address restoration requires manual configuration".yellow()
+        );
 
         Ok(())
     }
@@ -254,7 +268,8 @@ impl ExportArgs {
         let json = serde_json::to_string_pretty(&backup).into_diagnostic()?;
         fs::write(&self.output, json).into_diagnostic()?;
 
-        println!("{} Backup '{}' exported to {}",
+        println!(
+            "{} Backup '{}' exported to {}",
             "✓".green(),
             self.name.green(),
             self.output.display()

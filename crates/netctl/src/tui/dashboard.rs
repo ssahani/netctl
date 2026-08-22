@@ -37,9 +37,9 @@ impl Dashboard {
         let chunks = Layout::default()
             .direction(Direction::Vertical)
             .constraints([
-                Constraint::Length(3),  // Title
-                Constraint::Min(0),     // Main content
-                Constraint::Length(3),  // Footer
+                Constraint::Length(3), // Title
+                Constraint::Min(0),    // Main content
+                Constraint::Length(3), // Footer
             ])
             .split(area);
 
@@ -62,25 +62,26 @@ impl Dashboard {
             .border_style(Style::default().fg(BORDER_COLOR))
             .style(Style::default().bg(BG_COLOR));
 
-        let title_text = Paragraph::new(vec![
-            Line::from(vec![
-                Span::styled("netctl", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::raw(" - "),
-                Span::styled("Real-time Network Dashboard", Style::default().fg(LIGHT_ORANGE)),
-            ])
-        ])
-            .alignment(Alignment::Center)
-            .block(title);
+        let title_text = Paragraph::new(vec![Line::from(vec![
+            Span::styled(
+                "netctl",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::raw(" - "),
+            Span::styled(
+                "Real-time Network Dashboard",
+                Style::default().fg(LIGHT_ORANGE),
+            ),
+        ])])
+        .alignment(Alignment::Center)
+        .block(title);
 
         frame.render_widget(title_text, area);
     }
 
     async fn render_interfaces(&self, frame: &mut Frame<'_>, area: Rect) -> Result<()> {
         // Get interface information
-        let interfaces = match self.manager.list_links().await {
-            Ok(links) => links,
-            Err(_) => Vec::new(),
-        };
+        let interfaces = self.manager.list_links().await.unwrap_or_default();
 
         // Create table header
         let header = Row::new(vec!["Index", "Name", "State", "MTU", "MAC Address"])
@@ -101,7 +102,11 @@ impl Dashboard {
                     iface.name.clone(),
                     format!("{:?}", iface.state),
                     iface.mtu.to_string(),
-                    iface.mac_address.as_ref().map(|m| m.to_string()).unwrap_or_else(|| "-".to_string()),
+                    iface
+                        .mac_address
+                        .as_ref()
+                        .map(|m| m.to_string())
+                        .unwrap_or_else(|| "-".to_string()),
                 ])
                 .style(Style::default().fg(state_color))
             })
@@ -134,14 +139,20 @@ impl Dashboard {
     }
 
     fn render_footer(&self, frame: &mut Frame, area: Rect) {
-        let footer_text = vec![
-            Line::from(vec![
-                Span::styled("Press ", Style::default().fg(TEXT_COLOR)),
-                Span::styled("'q'", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-                Span::styled(" to quit | Auto-refresh: ", Style::default().fg(TEXT_COLOR)),
-                Span::styled("1s", Style::default().fg(LIGHT_ORANGE).add_modifier(Modifier::BOLD)),
-            ])
-        ];
+        let footer_text = vec![Line::from(vec![
+            Span::styled("Press ", Style::default().fg(TEXT_COLOR)),
+            Span::styled(
+                "'q'",
+                Style::default().fg(ORANGE).add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(" to quit | Auto-refresh: ", Style::default().fg(TEXT_COLOR)),
+            Span::styled(
+                "1s",
+                Style::default()
+                    .fg(LIGHT_ORANGE)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        ])];
 
         let footer = Paragraph::new(footer_text)
             .alignment(Alignment::Center)

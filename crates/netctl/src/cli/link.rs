@@ -42,24 +42,22 @@ impl SetArgs {
         let mgr = NetworkManager::new().await?;
 
         match self.property.as_str() {
-            "state" => {
-                match self.value.as_str() {
-                    "up" => {
-                        mgr.set_link_up(&self.interface).await?;
-                        println!("✓ Interface {} is now up", self.interface);
-                    }
-                    "down" => {
-                        mgr.set_link_down(&self.interface).await?;
-                        println!("✓ Interface {} is now down", self.interface);
-                    }
-                    _ => {
-                        return Err(miette::miette!(
-                            "Invalid state '{}'. Use 'up' or 'down'",
-                            self.value
-                        ))
-                    }
+            "state" => match self.value.as_str() {
+                "up" => {
+                    mgr.set_link_up(&self.interface).await?;
+                    println!("✓ Interface {} is now up", self.interface);
                 }
-            }
+                "down" => {
+                    mgr.set_link_down(&self.interface).await?;
+                    println!("✓ Interface {} is now down", self.interface);
+                }
+                _ => {
+                    return Err(miette::miette!(
+                        "Invalid state '{}'. Use 'up' or 'down'",
+                        self.value
+                    ))
+                }
+            },
             "mtu" => {
                 let mtu: u32 = self.value.parse().map_err(|_| {
                     miette::miette!("Invalid MTU '{}'. Must be a number", self.value)

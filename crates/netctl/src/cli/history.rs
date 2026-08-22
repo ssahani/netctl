@@ -101,7 +101,8 @@ impl ListArgs {
         println!();
 
         for (idx, entry) in entries.iter().take(self.limit).enumerate() {
-            println!("{} {} {}",
+            println!(
+                "{} {} {}",
                 format!("{}.", idx + 1).cyan(),
                 entry.id.green().bold(),
                 format!("({})", entry.timestamp).dimmed()
@@ -112,7 +113,10 @@ impl ListArgs {
         }
 
         if entries.len() > self.limit {
-            println!("{}", format!("... and {} more entries", entries.len() - self.limit).dimmed());
+            println!(
+                "{}",
+                format!("... and {} more entries", entries.len() - self.limit).dimmed()
+            );
         }
 
         Ok(())
@@ -172,9 +176,16 @@ impl RollbackArgs {
         // Note: This is a simplified implementation
         // In production, you would parse the state JSON and apply it
         println!("{} Current state saved", "✓".green());
-        println!("{} Configuration rolled back to {}", "✓".green(), entry.id.green());
+        println!(
+            "{} Configuration rolled back to {}",
+            "✓".green(),
+            entry.id.green()
+        );
         println!();
-        println!("{}", "Note: Rollback completed. Review changes with 'netctl show'".yellow());
+        println!(
+            "{}",
+            "Note: Rollback completed. Review changes with 'netctl show'".yellow()
+        );
 
         Ok(())
     }

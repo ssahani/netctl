@@ -83,9 +83,10 @@ impl ConnectivityArgs {
         let test_links: Vec<_> = if let Some(ref iface) = self.interface {
             links.into_iter().filter(|l| &l.name == iface).collect()
         } else {
-            links.into_iter().filter(|l| {
-                matches!(l.state, netctl_types::network::LinkState::Up)
-            }).collect()
+            links
+                .into_iter()
+                .filter(|l| matches!(l.state, netctl_types::network::LinkState::Up))
+                .collect()
         };
 
         if test_links.is_empty() {
@@ -117,7 +118,8 @@ impl ConnectivityArgs {
 
         println!();
         println!("{}", "=".repeat(80));
-        println!("Results: {} passed, {} failed",
+        println!(
+            "Results: {} passed, {} failed",
             passed.to_string().green(),
             failed.to_string().red()
         );
@@ -223,12 +225,17 @@ impl AllArgs {
         let mut results = Vec::new();
 
         // Test 1: Interface availability
-        println!("{} {}", "1.".cyan(), "Testing interface availability...".bold());
+        println!(
+            "{} {}",
+            "1.".cyan(),
+            "Testing interface availability...".bold()
+        );
         let mgr = NetworkManager::new().await?;
         let links = mgr.list_links().await?;
-        let up_count = links.iter().filter(|l| {
-            matches!(l.state, netctl_types::network::LinkState::Up)
-        }).count();
+        let up_count = links
+            .iter()
+            .filter(|l| matches!(l.state, netctl_types::network::LinkState::Up))
+            .count();
 
         if up_count > 0 {
             println!("   {} {} interface(s) up", "✓".green(), up_count);
@@ -240,7 +247,11 @@ impl AllArgs {
         println!();
 
         // Test 2: Internet connectivity
-        println!("{} {}", "2.".cyan(), "Testing internet connectivity...".bold());
+        println!(
+            "{} {}",
+            "2.".cyan(),
+            "Testing internet connectivity...".bold()
+        );
         let output = Command::new("ping")
             .args(&["-c", "2", "-W", "3", "8.8.8.8"])
             .output()
@@ -324,11 +335,26 @@ impl AllArgs {
 
         println!();
         if passed == total {
-            println!("{} All tests passed ({}/{})", "✓".green().bold(), passed, total);
+            println!(
+                "{} All tests passed ({}/{})",
+                "✓".green().bold(),
+                passed,
+                total
+            );
         } else if passed > 0 {
-            println!("{} Some tests passed ({}/{})", "⚠".yellow().bold(), passed, total);
+            println!(
+                "{} Some tests passed ({}/{})",
+                "⚠".yellow().bold(),
+                passed,
+                total
+            );
         } else {
-            println!("{} All tests failed ({}/{})", "✗".red().bold(), passed, total);
+            println!(
+                "{} All tests failed ({}/{})",
+                "✗".red().bold(),
+                passed,
+                total
+            );
         }
         println!();
 

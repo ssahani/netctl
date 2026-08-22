@@ -45,7 +45,12 @@ impl DoctorArgs {
         if all_ok {
             println!("{}", "✓ All checks passed!".green().bold());
         } else {
-            println!("{}", "⚠ Some issues detected. See above for details.".yellow().bold());
+            println!(
+                "{}",
+                "⚠ Some issues detected. See above for details."
+                    .yellow()
+                    .bold()
+            );
         }
 
         Ok(())
@@ -57,9 +62,10 @@ impl DoctorArgs {
         match NetworkManager::new().await {
             Ok(mgr) => match mgr.list_links().await {
                 Ok(links) => {
-                    let up_count = links.iter().filter(|l| {
-                        matches!(l.state, netctl_types::network::LinkState::Up)
-                    }).count();
+                    let up_count = links
+                        .iter()
+                        .filter(|l| matches!(l.state, netctl_types::network::LinkState::Up))
+                        .count();
 
                     println!("{}", "✓".green());
                     if self.verbose {
@@ -92,7 +98,7 @@ impl DoctorArgs {
 
         for service in &services {
             let output = Command::new("systemctl")
-                .args(&["is-active", service])
+                .args(["is-active", service])
                 .output();
 
             match output {
@@ -133,9 +139,7 @@ impl DoctorArgs {
     fn check_dbus(&self) -> bool {
         print!("{} Checking D-Bus connection... ", "→".blue());
 
-        let output = Command::new("busctl")
-            .args(&["list"])
-            .output();
+        let output = Command::new("busctl").args(["list"]).output();
 
         match output {
             Ok(_) => {
@@ -158,7 +162,7 @@ impl DoctorArgs {
 
         // Check if running as root or with capabilities
         let is_root = Command::new("id")
-            .args(&["-u"])
+            .args(["-u"])
             .output()
             .map(|out| String::from_utf8_lossy(&out.stdout).trim() == "0")
             .unwrap_or(false);
@@ -182,7 +186,7 @@ impl DoctorArgs {
 
         // Ping a reliable host
         let output = Command::new("ping")
-            .args(&["-c", "1", "-W", "2", "8.8.8.8"])
+            .args(["-c", "1", "-W", "2", "8.8.8.8"])
             .output();
 
         match output {
@@ -211,9 +215,7 @@ impl DoctorArgs {
     fn check_dns(&self) -> bool {
         print!("{} Checking DNS resolution... ", "→".blue());
 
-        let output = Command::new("host")
-            .args(&["www.google.com"])
-            .output();
+        let output = Command::new("host").args(["www.google.com"]).output();
 
         match output {
             Ok(out) => {

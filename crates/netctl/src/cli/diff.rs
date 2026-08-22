@@ -23,7 +23,11 @@ impl DiffArgs {
 
         println!("\n{}", "Network Configuration Diff".bold().cyan());
         println!("{}", "=".repeat(60));
-        println!("Comparing: {} vs {}\n", self.first.green(), self.second.yellow());
+        println!(
+            "Comparing: {} vs {}\n",
+            self.first.green(),
+            self.second.yellow()
+        );
 
         self.compare_states(&first_state, &second_state)?;
 
@@ -71,14 +75,22 @@ impl DiffArgs {
 
         // Find interfaces only in first
         for name in first_names.difference(&second_names) {
-            println!("{} Interface '{}' (only in {})",
-                "-".red(), name.red(), self.first);
+            println!(
+                "{} Interface '{}' (only in {})",
+                "-".red(),
+                name.red(),
+                self.first
+            );
         }
 
         // Find interfaces only in second
         for name in second_names.difference(&first_names) {
-            println!("{} Interface '{}' (only in {})",
-                "+".green(), name.green(), self.second);
+            println!(
+                "{} Interface '{}' (only in {})",
+                "+".green(),
+                name.green(),
+                self.second
+            );
         }
 
         // Compare common interfaces
@@ -102,7 +114,8 @@ impl DiffArgs {
         }
 
         if iface1.state != iface2.state {
-            println!("  {} state: {} → {}",
+            println!(
+                "  {} state: {} → {}",
                 "~".yellow(),
                 iface1.state.red(),
                 iface2.state.green()
@@ -110,7 +123,8 @@ impl DiffArgs {
         }
 
         if iface1.mtu != iface2.mtu {
-            println!("  {} mtu: {} → {}",
+            println!(
+                "  {} mtu: {} → {}",
                 "~".yellow(),
                 iface1.mtu.to_string().red(),
                 iface2.mtu.to_string().green()
@@ -118,7 +132,8 @@ impl DiffArgs {
         }
 
         if iface1.mac != iface2.mac {
-            println!("  {} mac: {} → {}",
+            println!(
+                "  {} mac: {} → {}",
                 "~".yellow(),
                 iface1.mac.as_deref().unwrap_or("none").red(),
                 iface2.mac.as_deref().unwrap_or("none").green()

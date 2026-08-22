@@ -115,7 +115,11 @@ impl SaveArgs {
         let yaml = serde_yaml::to_string(&profile).into_diagnostic()?;
         fs::write(&profile_path, yaml).into_diagnostic()?;
 
-        println!("✓ Profile '{}' saved to {}", self.name, profile_path.display());
+        println!(
+            "✓ Profile '{}' saved to {}",
+            self.name,
+            profile_path.display()
+        );
         println!("  {} interface(s) saved", profile.interfaces.len());
 
         Ok(())

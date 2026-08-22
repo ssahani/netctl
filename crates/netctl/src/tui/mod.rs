@@ -3,6 +3,7 @@
 
 pub mod app;
 pub mod colors;
+#[allow(dead_code)] // superseded by app::App; kept for reference/future reuse
 pub mod dashboard;
 
 use crossterm::{
@@ -16,7 +17,6 @@ use std::io::{self, stdout};
 use std::time::{Duration, Instant};
 
 pub use app::App;
-pub use dashboard::Dashboard;
 
 pub fn init_terminal() -> Result<Terminal<CrosstermBackend<io::Stdout>>> {
     enable_raw_mode().into_diagnostic()?;
@@ -44,15 +44,17 @@ pub async fn run(mut app: App) -> Result<()> {
         };
 
         // Draw UI
-        terminal.draw(|frame| {
-            tokio::task::block_in_place(|| {
-                tokio::runtime::Handle::current().block_on(async {
-                    if let Err(e) = app.render(frame).await {
-                        eprintln!("Render error: {}", e);
-                    }
-                })
-            });
-        }).into_diagnostic()?;
+        terminal
+            .draw(|frame| {
+                tokio::task::block_in_place(|| {
+                    tokio::runtime::Handle::current().block_on(async {
+                        if let Err(e) = app.render(frame).await {
+                            eprintln!("Render error: {}", e);
+                        }
+                    })
+                });
+            })
+            .into_diagnostic()?;
 
         // Calculate timeout
         let timeout = tick_rate
@@ -61,14 +63,11 @@ pub async fn run(mut app: App) -> Result<()> {
 
         // Handle events
         if event::poll(timeout).into_diagnostic()? {
-            match event::read().into_diagnostic()? {
-                Event::Key(key) => {
-                    handle_key_event(&mut app, key, interface_count);
-                    if app.should_quit {
-                        break;
-                    }
+            if let Event::Key(key) = event::read().into_diagnostic()? {
+                handle_key_event(&mut app, key, interface_count);
+                if app.should_quit {
+                    break;
                 }
-                _ => {}
             }
         }
 

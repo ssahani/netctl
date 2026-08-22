@@ -53,30 +53,35 @@ impl ValidateArgs {
         };
 
         // Parse based on extension
-        let config: NetworkConfig = if self.file.extension().and_then(|s| s.to_str()) == Some("toml") {
-            match toml::from_str(&content) {
-                Ok(c) => c,
-                Err(e) => {
-                    println!("{} Invalid TOML: {}", "✗".red(), e);
-                    return Ok(());
+        let config: NetworkConfig =
+            if self.file.extension().and_then(|s| s.to_str()) == Some("toml") {
+                match toml::from_str(&content) {
+                    Ok(c) => c,
+                    Err(e) => {
+                        println!("{} Invalid TOML: {}", "✗".red(), e);
+                        return Ok(());
+                    }
                 }
-            }
-        } else {
-            match serde_yaml::from_str(&content) {
-                Ok(c) => c,
-                Err(e) => {
-                    println!("{} Invalid YAML: {}", "✗".red(), e);
-                    return Ok(());
+            } else {
+                match serde_yaml::from_str(&content) {
+                    Ok(c) => c,
+                    Err(e) => {
+                        println!("{} Invalid YAML: {}", "✗".red(), e);
+                        return Ok(());
+                    }
                 }
-            }
-        };
+            };
 
         println!("{} Configuration file parsed successfully", "✓".green());
         println!();
 
         // Validate each interface
         for (idx, iface) in config.interfaces.iter().enumerate() {
-            println!("Validating interface {} ({})...", idx + 1, iface.name.cyan());
+            println!(
+                "Validating interface {} ({})...",
+                idx + 1,
+                iface.name.cyan()
+            );
 
             self.validate_interface(iface, &mut errors, &mut warnings);
         }
@@ -109,7 +114,12 @@ impl ValidateArgs {
             println!("{}", "✗ Validation failed!".red().bold());
             std::process::exit(1);
         } else if self.strict && !warnings.is_empty() {
-            println!("{}", "✗ Validation failed in strict mode (warnings present)".red().bold());
+            println!(
+                "{}",
+                "✗ Validation failed in strict mode (warnings present)"
+                    .red()
+                    .bold()
+            );
             std::process::exit(1);
         } else {
             println!("{}", "✓ Validation passed with warnings".yellow().bold());
@@ -118,10 +128,15 @@ impl ValidateArgs {
         Ok(())
     }
 
-    fn validate_interface(&self, iface: &InterfaceConfig, errors: &mut Vec<String>, warnings: &mut Vec<String>) {
+    fn validate_interface(
+        &self,
+        iface: &InterfaceConfig,
+        errors: &mut Vec<String>,
+        warnings: &mut Vec<String>,
+    ) {
         // Validate interface name
         if iface.name.is_empty() {
-            errors.push(format!("Interface name cannot be empty"));
+            errors.push("Interface name cannot be empty".to_string());
         } else if iface.name.len() > 15 {
             errors.push(format!(
                 "Interface name '{}' is too long (max 15 characters)",

@@ -30,7 +30,10 @@ impl WatchArgs {
             print!("\x1B[2J\x1B[1;1H");
 
             // Print timestamp
-            println!("Updated: {}\n", chrono::Local::now().format("%Y-%m-%d %H:%M:%S"));
+            println!(
+                "Updated: {}\n",
+                chrono::Local::now().format("%Y-%m-%d %H:%M:%S")
+            );
 
             // Get interface data
             match mgr.list_links().await {
@@ -42,7 +45,10 @@ impl WatchArgs {
                     };
 
                     // Print header
-                    println!("{:<6} {:<15} {:<8} {:<8} {:<20}", "INDEX", "NAME", "STATE", "MTU", "MAC ADDRESS");
+                    println!(
+                        "{:<6} {:<15} {:<8} {:<8} {:<20}",
+                        "INDEX", "NAME", "STATE", "MTU", "MAC ADDRESS"
+                    );
                     println!("{}", "-".repeat(65));
 
                     // Print interfaces
@@ -53,7 +59,10 @@ impl WatchArgs {
                             link.name,
                             format!("{:?}", link.state),
                             link.mtu,
-                            link.mac_address.as_ref().map(|m| m.to_string()).unwrap_or_else(|| "-".to_string())
+                            link.mac_address
+                                .as_ref()
+                                .map(|m| m.to_string())
+                                .unwrap_or_else(|| "-".to_string())
                         );
                     }
                 }
