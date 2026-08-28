@@ -1,3 +1,6 @@
+# Copyright 2026 Zyvor AI Labs
+# SPDX-License-Identifier: Apache-2.0
+
 # Multi-stage Dockerfile for static netctl binary
 
 FROM rust:1.75-alpine AS builder
