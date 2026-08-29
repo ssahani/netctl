@@ -26,3 +26,4 @@ Thumbs.db
 # Tests
 coverage/
 *.profraw
+.docs-tools/

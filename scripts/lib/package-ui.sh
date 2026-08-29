@@ -291,7 +291,7 @@ Other scripts:
   ./uninstall.sh --help
   ./test-package.sh --help
 
-zyvor.dev · HyperSDK · © 2026
+zyvor.dev · Zyvor · © 2026
 EOF
 }
 
@@ -535,7 +535,7 @@ pkg_install_welcome() {
     local product="$1"
     pkg_customer_hero "${product}"
     pkg_detail "This run: ./install.sh (use ./install-everything.sh for full host + production setup)"
-    pkg_detail "zyvor.dev · HyperSDK · © 2026"
+    pkg_detail "zyvor.dev · Zyvor · © 2026"
     echo ""
 }
 
@@ -593,7 +593,7 @@ pkg_install_finish() {
     fi
     pkg_box_end
 
-    local -a steps=("zyvor.dev · HyperSDK · © 2026")
+    local -a steps=("zyvor.dev · Zyvor · © 2026")
     if [[ ${#extras[@]} -gt 0 ]]; then
         steps+=("${extras[@]}")
     fi
@@ -662,7 +662,7 @@ pkg_access_url() {
 pkg_install_done_message() {
     local product="${1:-}"
     pkg_summary "Install complete"
-    local -a _done_steps=("zyvor.dev · HyperSDK · © 2026" "Help: cat HELP.txt")
+    local -a _done_steps=("zyvor.dev · Zyvor · © 2026" "Help: cat HELP.txt")
     if [[ -f "${PKG_INSTALL_ROOT:-.}/LICENSE" || -f "${PKG_INSTALL_ROOT:-.}/LICENSE.txt" ]]; then
         _done_steps=("License: cat LICENSE · LEGAL-INDEX.txt" "${_done_steps[@]}")
     fi

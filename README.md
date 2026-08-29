@@ -4,12 +4,12 @@
 
 **Network configuration CLI for Linux**
 
-[![CI](https://github.com/hypersdk/netctl/actions/workflows/ci.yml/badge.svg)](https://github.com/hypersdk/netctl/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/hypersdk/netctl)](https://github.com/hypersdk/netctl/releases)
+[![CI](https://github.com/zyvorai/netctl/actions/workflows/ci.yml/badge.svg)](https://github.com/zyvorai/netctl/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/zyvorai/netctl)](https://github.com/zyvorai/netctl/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 
-[Quick start](#quick-start) · [Enterprise](#enterprise) · [Support the project](#support-the-project) · [Releases](https://github.com/hypersdk/netctl/releases)
+[Quick start](#quick-start) · [Enterprise](#enterprise) · [Support the project](#support-the-project) · [Releases](https://github.com/zyvorai/netctl/releases)
 
 <p align="center">
   <a href="https://zyvor.dev/demo?utm_source=github&utm_medium=netctl"><img src="https://img.shields.io/badge/Demo-F97316?style=flat-square" alt="Demo"/></a>
@@ -48,13 +48,13 @@ Async-first network configuration manager with a `systemctl`-style interface. In
 ## Installation
 
 ```bash
-git clone https://github.com/hypersdk/netctl.git
+git clone https://github.com/zyvorai/netctl.git
 cd netctl
 cargo build --release
 sudo cp target/release/netctl /usr/local/bin/
 ```
 
-Pre-built binaries: [GitHub Releases](https://github.com/hypersdk/netctl/releases).
+Pre-built binaries: [GitHub Releases](https://github.com/zyvorai/netctl/releases).
 
 Docker:
 
@@ -112,15 +112,15 @@ cargo clippy --workspace -- -D warnings
 
 ## Contributing
 
-Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/issues).
+Issues and PRs: [github.com/zyvorai/netctl](https://github.com/zyvorai/netctl/issues).
 
 ## Enterprise
 
 | | Community Edition (this repo) | Enterprise ([zyvor.dev](https://zyvor.dev/?utm_source=github&utm_medium=netctl)) |
 |---|------------------------------|-------------------------------------------------------------------------------------|
-| **Support** | [GitHub Issues](https://github.com/hypersdk/netctl/issues) | SLA, [sales@zyvor.dev](mailto:sales@zyvor.dev), professional services |
+| **Support** | [GitHub Issues](https://github.com/zyvorai/netctl/issues) | SLA, [sales@zyvor.dev](mailto:sales@zyvor.dev), professional services |
 | **Scope** | CLI and declarative apply | Supported rollouts with netevd and cloud-netconfig |
-| **Platform** | netctl | Full HyperSDK networking and migration stack |
+| **Platform** | netctl | Full Zyvor networking and migration stack |
 | **Features** | Link/address/route/DNS/hostname management, declarative YAML/TOML apply, `doctor` diagnostics, TUI, shell completions | Same feature set, operated at fleet scale with SLA-backed support |
 
 | | |
@@ -130,14 +130,14 @@ Issues and PRs: [github.com/hypersdk/netctl](https://github.com/hypersdk/netctl/
 | **Pricing** | [zyvor.dev/pricing](https://zyvor.dev/pricing?utm_source=github&utm_medium=netctl) |
 | **Contact** | [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev) |
 
-Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/hypersdk/netevd) and [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) → contact Zyvor (not GitHub Issues). Details: [docs/enterprise.md](docs/enterprise.md).
+Community Edition covers CLI usage and declarative apply. Enterprise SLAs and the full stack with [netevd](https://github.com/zyvorai/netevd) and [cloud-netconfig](https://github.com/zyvorai/cloud-netconfig) → contact Zyvor (not GitHub Issues). Details: [docs/enterprise.md](docs/enterprise.md).
 
 ## Support the project
 
 netctl Community Edition is free and open source, maintained by **Susant Sahani** · [Zyvor AI Labs](https://zyvor.dev?utm_source=github&utm_medium=netctl)
 
 - **Enterprise / production:** [zyvor.dev/contact](https://zyvor.dev/contact?utm_source=github&utm_medium=netctl) · [sales@zyvor.dev](mailto:sales@zyvor.dev)
-- **Community help:** [GitHub Issues](https://github.com/hypersdk/netctl/issues)
+- **Community help:** [GitHub Issues](https://github.com/zyvorai/netctl/issues)
 
 ## License
 
@@ -153,4 +153,4 @@ Enterprise: [sales@zyvor.dev](mailto:sales@zyvor.dev) · General: [info@zyvor.de
 
 ## Related
 
-[netevd](https://github.com/hypersdk/netevd) · [cloud-netconfig](https://github.com/hypersdk/cloud-netconfig) · [hypersdk](https://github.com/hypersdk/hypersdk)
+[netevd](https://github.com/zyvorai/netevd) · [cloud-netconfig](https://github.com/zyvorai/cloud-netconfig) · [zyvorai](https://github.com/zyvorai)

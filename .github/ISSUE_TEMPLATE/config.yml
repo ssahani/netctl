@@ -5,7 +5,7 @@ contact_links:
     about: Support open-source maintenance by Susant Sahani — not required to use CE
   - name: "Watch platform demo"
     url: https://zyvor.dev/demo?utm_source=github&utm_medium=netctl
-    about: Migration video and live dashboard — HyperSDK platform overview
+    about: Migration video and live dashboard — Zyvor platform overview
   - name: "Enterprise, sales and SLAs (Zyvor)"
     url: https://zyvor.dev/contact?utm_source=github&utm_medium=netctl
     about: Enterprise SLAs and supported rollouts — not for GitHub Issues
@@ -16,11 +16,11 @@ contact_links:
     url: https://zyvor.dev/roi?utm_source=github&utm_medium=netctl
     about: Estimate migration and infrastructure savings
   - name: "CE vs Enterprise"
-    url: https://github.com/hypersdk/netctl/blob/main/docs/enterprise.md
+    url: https://github.com/zyvorai/netctl/blob/main/docs/enterprise.md
     about: When to use GitHub vs contact Zyvor for production
   - name: "Discussions"
-    url: https://github.com/hypersdk/netctl/discussions
+    url: https://github.com/zyvorai/netctl/discussions
     about: Community questions and ideas
   - name: "Security"
-    url: https://github.com/hypersdk/netctl/issues
+    url: https://github.com/zyvorai/netctl/issues
     about: For security issues, open a private report via the repository maintainer

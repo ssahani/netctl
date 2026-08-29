@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><title>Getting Started — netctl</title>
+<style>
+@page{size:A4;margin:15mm 16mm}*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#1f2937;line-height:1.58;font-size:10.5pt}
+.cover{height:262mm;margin:-15mm -16mm 0;background:linear-gradient(135deg,#0c4a6e,#075985,#0d1b2a);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;page-break-after:always;position:relative}
+.cover .kicker{letter-spacing:5px;text-transform:uppercase;opacity:.72;margin-bottom:1.4em}
+.cover h1{font-size:3.2em;font-weight:800;letter-spacing:-2px}
+.cover h1 span{color:#38bdf8}
+.cover .sub{font-size:1.3em;font-weight:300;opacity:.93;margin:1em 0;max-width:24em}
+.cover .badge{display:inline-block;background:rgba(96,165,250,.2);border:1px solid #38bdf8;padding:8px 22px;border-radius:20px;margin-top:2em}
+.cover .foot{position:absolute;bottom:34px;font-size:.82em;opacity:.6}
+h2{page-break-before:always;margin:0 0 .35em;font-size:1.55em;font-weight:750;color:#12203a;border-bottom:2px solid #e5edfb;padding-bottom:.28em}
+h2:first-of-type{page-break-before:avoid}
+h3{margin:1.1em 0 .4em;font-size:1.12em;font-weight:700}
+p,li{margin:.4em 0}ul,ol{margin:.5em 0 .9em 1.4em}
+a{color:#2563eb;text-decoration:none}
+code{background:#eef2f7;padding:1px 6px;border-radius:4px;font-size:.86em;font-family:ui-monospace,Menlo,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:12px 15px;border-radius:9px;overflow-x:auto;margin:.8em 0}
+table{width:100%;border-collapse:collapse;margin:.8em 0 1.1em;font-size:9.5pt}
+th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f1f5f9}
+hr{border:none;border-top:1px solid #e5e7eb;margin:1.2em 0}
+</style></head><body>
+<section class="cover"><div class="kicker">ZyvorAI Labs · Customer Documentation</div>
+<h1>net<span>ctl</span></h1>
+<div class="sub">Getting Started</div>
+<div class="badge">2026-08-29</div>
+<div class="foot">zyvor.dev · Confidential — for licensed customers</div></section>
+<main><p>netctl is an async Linux network CLI for links, addresses, routes, DNS, and hostname — plus declarative YAML/TOML <code>apply</code> with dry-run and <code>doctor</code> diagnostics. This page gets you from a fresh checkout to your first applied config.</p>
+<h2>Prerequisites</h2>
+<ul>
+<li>A Linux host with <code>sudo</code>/root access — link, address, and route changes require privileges.</li>
+<li>netctl built and installed: clone <a href="https://github.com/zyvorai/netctl">github.com/zyvorai/netctl</a> and follow the build/install steps in the upstream README (source of truth for release artifacts and packaging).</li>
+<li>systemd-networkd and systemd-resolved present if you want netctl&#39;s integration with them; Netlink is used directly for links/addresses/routes either way.</li>
+</ul>
+<h2>1. Check current state</h2>
+<pre><code class="language-bash">sudo netctl show
+</code></pre>
+<h2>2. Make a change</h2>
+<pre><code class="language-bash">sudo netctl link set eth0 state up
+</code></pre>
+<h2>3. Apply a declarative config</h2>
+<pre><code class="language-bash">sudo netctl apply config/network-config.example.yaml
+</code></pre>
+<p><code>apply</code> reads YAML or TOML, backs up the prior state automatically, and supports diff/restore — see <a href="configuration.md">Configuration</a> for the file format.</p>
+<h2>Troubleshooting</h2>
+<ul>
+<li><strong><code>apply</code>/<code>link</code>/<code>addr</code> commands fail with a permission error</strong> — rerun with <code>sudo</code>; netctl needs root to touch links, addresses, and routes.</li>
+<li><strong>Changes don&#39;t take effect on a systemd-networkd host</strong> — confirm <code>systemd-networkd</code>/<code>systemd-resolved</code> are active; netctl integrates with them rather than replacing them.</li>
+</ul>
+<h2>Next steps</h2>
+<ul>
+<li><a href="configuration.md">Configuration</a></li>
+<li><a href="workflows.md">Common workflows</a></li>
+<li><a href="admin-basics.md">Admin basics</a></li>
+</ul>
+<h2>Operate from the console (UX)</h2>
+<ol>
+<li>Open this route from the nav or command palette and wait for live API data.</li>
+<li>Use filters/search when present; drill into a row for detail.</li>
+<li>For mutating actions: confirm role gates and impact before applying.</li>
+<li><strong>Empty / fail:</strong> Check service health, auth, and that required CRDs/backends for this domain are installed.</li>
+<li><strong>Success:</strong> Live data loads; created/updated objects appear without error toasts.</li>
+</ol>
+<hr>
+<p>netctl is a Linux <strong>CLI</strong> (optional TUI) for host networking — no first-party web console.</p>
+<h2>Essentials</h2>
+<pre><code class="language-bash">sudo netctl show
+sudo netctl link set eth0 state up
+sudo netctl apply config/network-config.example.yaml
+sudo netctl doctor
+</code></pre>
+<h2>Where to go next</h2>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Doc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First install</td>
+<td><a href="getting-started.md">Getting Started</a></td>
+</tr>
+<tr>
+<td>Config format</td>
+<td><a href="configuration.md">Configuration</a></td>
+</tr>
+<tr>
+<td>Day-2 jobs</td>
+<td><a href="workflows.md">Workflows</a></td>
+</tr>
+<tr>
+<td>Host / packaging</td>
+<td><a href="admin-basics.md">Admin Basics</a></td>
+</tr>
+<tr>
+<td>Topic index</td>
+<td><a href="PAGE_INDEX.md">PAGE_INDEX.md</a></td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Steps</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lab install</td>
+<td>Clone → build → install binary → enable systemd unit (if applicable)</td>
+</tr>
+<tr>
+<td>Validate</td>
+<td>Run status/health command → check logs → confirm metrics or API</td>
+</tr>
+<tr>
+<td>Upgrade</td>
+<td>Stop service → replace binary → migrate config if release notes require → start service</td>
+</tr>
+</tbody></table>
+<p>For netctl-specific examples, see the upstream <code>docs/</code> tree and tutorials on GitHub.</p>
+<h2>Operate from the console (UX)</h2>
+<ol>
+<li>Open this route from the nav or command palette and wait for live API data.</li>
+<li>Use filters/search when present; drill into a row for detail.</li>
+<li>For mutating actions: confirm role gates and impact before applying.</li>
+<li><strong>Empty / fail:</strong> Check service health, auth, and that required CRDs/backends for this domain are installed.</li>
+<li><strong>Success:</strong> Live data loads; created/updated objects appear without error toasts.</li>
+</ol>
+</main></body></html>

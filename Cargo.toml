@@ -15,7 +15,7 @@ edition = "2021"
 rust-version = "1.75"
 authors = ["ZyvorAI Labs Private Limited <info@zyvor.dev>"]
 license = "Apache-2.0"
-repository = "https://github.com/hypersdk/netctl"
+repository = "https://github.com/zyvorai/netctl"
 
 [workspace.dependencies]
 # Internal crates

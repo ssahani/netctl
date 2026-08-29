@@ -1,0 +1,6 @@
+{
+  "getting-started": "Install netctl and apply your first network config.",
+  "configuration": "YAML/TOML declarative config format and backends.",
+  "workflows": "Day-2 link, address, route, doctor, and apply jobs.",
+  "admin-basics": "Packaging, privileges, systemd integration, and ops."
+}

@@ -25,11 +25,11 @@ By downloading, building, deploying, installing, or using netctl binaries or cus
 
 **ZyvorAI Labs Private Limited** — incorporated under the Companies Act, 2013 (India).
 
-netctl is distributed under the **zyvor.dev** / **HyperSDK** product family.
+netctl is distributed under the **zyvor.dev** / **Zyvor** product family.
 
 ## 4. Trademarks
 
-No license to use **Zyvor**, **zyvor.dev**, **HyperSDK**, **netctl**, or related marks except nominative/fair use. See [docs/legal/TRADEMARK-NOTICE.md](docs/legal/TRADEMARK-NOTICE.md).
+No license to use **Zyvor**, **zyvor.dev**, **Zyvor**, **netctl**, or related marks except nominative/fair use. See [docs/legal/TRADEMARK-NOTICE.md](docs/legal/TRADEMARK-NOTICE.md).
 
 ## 5. Distribution and enterprise
 

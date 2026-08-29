@@ -25,7 +25,7 @@ mkdir -p "${STAGE}"
   cat <<EOF
 ================================================================================
   ${PRODUCT} — customer bundle help
-  zyvor.dev · HyperSDK · © 2026
+  zyvor.dev · Zyvor · © 2026
 ================================================================================
 
 START HERE
@@ -207,9 +207,9 @@ EOF
     platform)
       cat <<'EOF'
 --------------------------------------------------------------------------------
-PLATFORM NOTES (HyperSDK / hyper2kvm)
+PLATFORM NOTES (Zyvor / h2kvm)
 --------------------------------------------------------------------------------
-  Config: ~/.config/hypersdk/config.yaml or *.env in this folder (see README.txt)
+  Config: ~/.config/zyvor/config.yaml or *.env in this folder (see README.txt)
   Dashboard: often https://<host>:5080/web/dashboard/  (subpath — use printed URL)
   CLI: ./bin/hyperctl --help  ./bin/hypervisord --help  (if bundled)
 
