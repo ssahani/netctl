@@ -1,4 +1,4 @@
-# netctl — Customer Documentation
+# netctl — User Documentation
 
 Network configuration CLI — declarative apply, doctor, and day-2 host networking.
 
@@ -13,12 +13,12 @@ Network configuration CLI — declarative apply, doctor, and day-2 host networki
 ## Printable PDFs
 
 ```bash
-node scripts/customer-docs/build-customer-pdfs.mjs
+node scripts/user-docs/build-user-pdfs.mjs
 ```
 
 Output lands in [`pdf/`](pdf/):
 
-- `netctl-Customer-README.pdf`
+- `netctl-User-README.pdf`
 - `netctl-Getting-Started.pdf`
 - `netctl-Page-by-Page.pdf`
 - `netctl-Admin-Basics.pdf`

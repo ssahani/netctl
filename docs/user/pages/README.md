@@ -30,4 +30,4 @@ Every route is also listed in the [complete page index](../PAGE_INDEX.md).
 
 ---
 
-4 guides. Regenerate: `node scripts/customer-docs/generate-guide-index.mjs`.
+4 guides. Regenerate: `node scripts/user-docs/generate-guide-index.mjs`.
